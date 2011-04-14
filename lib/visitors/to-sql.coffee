@@ -12,4 +12,8 @@ class ToSql
     @pool.withConnection (conn) ->
       @connection = conn
       super
-
+  
+  visitArelNodesDeleteStatement: (o) ->
+    [
+      "DELETE FROM #{visit o.relation}", 
+    ]
