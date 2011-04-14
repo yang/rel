@@ -1,7 +1,8 @@
 u = require 'underscore'
 Nodes = require './nodes/nodes'
+TreeManager = require 'tree-manager'
 
-class SelectManager
+class SelectManager < TreeManager
   constructor: (table) ->
     @ast = new Nodes.SelectStatement()
     @ctx = u(@ast.cores).last()

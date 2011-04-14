@@ -9,7 +9,7 @@ tests = vows.describe('Querying stuff').addBatch
   'A table':
     topic: ->
       new Table('users')
-      
+
     'it has a from method': (table) ->
       assert.isNotNull table.from('user')
 
