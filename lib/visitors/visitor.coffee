@@ -3,6 +3,4 @@ class Visitor
     @visit object
 
   visit: (object) ->
-    # TODO Need to make this actually work.
-    console.log 'hit visit'
-    null
+    @["visit#{object.class.toString()}"]()
