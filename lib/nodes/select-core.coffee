@@ -18,7 +18,7 @@ class SelectCore extends Node
     
   # TODO Not sure what this will do.
   initializeCopy: (other) ->
-    super
+    super()
     @source = u(@source).clone() if @source
     @projections = u(@projections).clone()
     @wheres = u(@wheres).clone()

@@ -1,8 +1,10 @@
-require './visitors/dot'
+Dot = require './visitors/dot'
+Postgresql = require './visitors/postgresql'
 
 Visitors = 
   Dot: Dot
-  visitorFor: ->
-    require './visitors/postgresql'
+  visitor: ->
+    new Postgresql()
+    
 
 exports = module.exports = Visitors

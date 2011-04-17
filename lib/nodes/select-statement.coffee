@@ -11,7 +11,7 @@ class SelectStatement
     @with = null
     
   initializeCopy: (other) ->
-    super
+    super()
     # TODO Not sure if this will work as expected.
     @cores = u(@cores).map (x) -> 
       u(x).clone()

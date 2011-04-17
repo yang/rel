@@ -25,7 +25,7 @@ Predications =
     
   # TODO Ranges won't work here. Should support an array.
   in: (other) ->
-    switch other.class
+    switch other.constructor
       when SelectManager
         new Nodes.In(@, other.ast)
       else
@@ -39,7 +39,7 @@ Predications =
     
   # TODO Ranges won't work here. Should support an array.
   notIn: (other) ->
-    switch other.class
+    switch other.constructor
       when SelectManager
         new Nodes.NotIn(@, other.ast)
       else

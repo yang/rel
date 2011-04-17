@@ -4,6 +4,7 @@ assert = require 'assert'
 Table = require '../lib/table'
 SelectManager = require '../lib/select-manager'
 u = require 'underscore'
+SqlLiteral = require('../lib/nodes/sql-literal')
 
 tests = vows.describe('Querying stuff').addBatch
   'A table':
@@ -17,6 +18,6 @@ tests = vows.describe('Querying stuff').addBatch
       assert.isNotNull table.project(new require('../lib/nodes/sql-literal')('*'))
 
     'it should return sql': (table) ->
-      console.log table.project(new require('../lib/nodes/sql-literal')('*')).toSql()
+      assert.equal table.project(new SqlLiteral('*')).toSql(), "SELECT * FROM \"users\""
 
 tests.export module

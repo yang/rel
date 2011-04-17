@@ -1,3 +1,5 @@
-class SqlLiteral extends String
-    
-console.log SqlLiteral
+TableAlias = require './lib/nodes/table-alias'
+
+x = new TableAlias('test', 'foo')
+console.log x
+

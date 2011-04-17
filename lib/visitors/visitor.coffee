@@ -3,4 +3,6 @@ class Visitor
     @visit object
 
   visit: (object) ->
-    @["visit#{object.class.toString()}"]()
+    @["visitRelNodes#{object.constructor.name}"](object)
+
+exports = module.exports = Visitor

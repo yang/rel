@@ -1,7 +1,10 @@
 u = require 'underscore'
 
-class SqlLiteral extends String
-  
+class SqlLiteral
+  constructor: (@value) ->
+
+  toString: ->
+    @value
   
 Expressions = require('../expressions')
 Predications = require('../predications')

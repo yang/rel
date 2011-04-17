@@ -1,3 +1,5 @@
 ToSql = require './to-sql'
 
-class Postgresql < ToSql
+class Postgresql extends ToSql
+
+exports = module.exports = Postgresql

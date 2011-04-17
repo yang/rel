@@ -1,9 +1,12 @@
 u = require 'underscore'
+Visitors = require './visitors'
+FactoryMethods = require './factory-methods'
 
-class TreeManager
+
+class TreeManager extends FactoryMethods
   constructor: ->
     # TODO need to implement engines with a factory.
-    @visitor = Visitors.visitor_for null
+    @visitor = Visitors.visitor()
     @ast = null
     @ctx = null
 
@@ -14,13 +17,14 @@ class TreeManager
     @visitor.accept @ast
 
   initializeCopy: (other) ->
-    super
+    super()
     @ast = u(@ast).clone()
 
   where: (expr) ->
-    if @.class == expr
+    if @.constructor == expr
       expr = expr.ast
     @ctx.wheres.push expr
     @
+
 
 exports = module.exports = TreeManager
