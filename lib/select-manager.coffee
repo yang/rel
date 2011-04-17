@@ -22,13 +22,16 @@ class SelectManager extends TreeManager
     @
     
   from: (table) ->
-    new Nodes.SqlLiteral(table) if table.constructor == String
+    table = new Nodes.SqlLiteral(table) if table? and table.constructor == String
     
-    switch table.constructor
-      when Nodes.Join
-        @ctx.source.right.push table
-      else
-        @ctx.source.left = table
+    if table?
+      switch table.constructor
+        when Nodes.Join
+          @ctx.source.right.push table
+        else
+          @ctx.source.left = table
+    else
+      @ctx.source.left = null
     @
 
   group: (columns...) ->
@@ -83,5 +86,10 @@ class SelectManager extends TreeManager
 
     @
 
+  offset: (amount) ->
+    @skip amount
+
+  exists: ->
+    new Nodes.Exists(@ast)
 
 exports = module.exports = SelectManager

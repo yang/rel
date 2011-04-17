@@ -5,6 +5,7 @@ SelectCore = require('./select-core')
 Unary = require './unary'
 TableAlias = require './table-alias'
 And = require './and'
+FunctionNode = require './function-node'
 
 Nodes = 
   SelectStatement: SelectStatement
@@ -26,6 +27,12 @@ Nodes =
       @relation = @left
       @tableAlias = @name
       @tableName = @relation.name
+  FunctionNode: FunctionNode
+  Sum: class Sum extends FunctionNode
+  Exists: class Exists extends FunctionNode
+  Max: class Max extends FunctionNode
+  Min: class Min extends FunctionNode
+  Avg: class Avg extends FunctionNode
   As: class As extends Binary
   Assignment: class Assignment extends Binary
   Between: class Between extends Binary

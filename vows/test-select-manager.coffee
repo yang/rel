@@ -54,7 +54,7 @@ tests = vows.describe('Querying stuff').addBatch
         manager.from table
         manager.from 'users'
         manager.project table.attribute('id')
-        assert.equal manager.toSql(), 'SELECT "users"."id" FROM "users"'
+        assert.equal manager.toSql(), 'SELECT "users"."id" FROM users'
       'can have multiple items together': ->
         table = new Table('users')
         manager = table.from table
@@ -93,6 +93,24 @@ tests = vows.describe('Querying stuff').addBatch
         mgr = table.from table
         mgr.skip 10
         assert.equal mgr.toSql(), 'SELECT FROM "users" OFFSET 10'
+      'should chain': ->
+        table = new Table 'users'
+        mgr = table.from table
+        assert.equal mgr.skip(10).toSql(), 'SELECT FROM "users" OFFSET 10'
+      'should handle removing a skip': ->
+        table = new Table 'users'
+        mgr = table.from table
+        assert.equal mgr.skip(10).toSql(), 'SELECT FROM "users" OFFSET 10'
+        assert.equal mgr.skip(null).toSql(), 'SELECT FROM "users"'
+
+    'exists':
+      'should create an exists clause': ->
+        table = new Table 'users'
+        mgr = new SelectManager table
+        mgr.project(new SqlLiteral('*'))
+        m2 = new SelectManager
+        m2.project mgr.exists()
+        assert.equal m2.toSql(), "SELECT EXISTS (#{mgr.toSql()})"
 
 
 

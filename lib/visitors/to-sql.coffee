@@ -160,6 +160,10 @@ class ToSql extends Visitor
   visitRelNodesOffset: (o) ->
     "OFFSET #{@visit o.expr}"
 
+  visitRelNodesExists: (o) ->
+    e = if o.alias then " AS #{@visit o.alias}" else ''
+    "EXISTS (#{@visit o.expressions})#{e}"
+
 
 
 
