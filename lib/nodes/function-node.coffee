@@ -8,11 +8,11 @@ class FunctionNode extends Node
     @expressions = expr
     @alias = aliaz
     @distinct = false
+    u(@).extend(Expressions)
 
   as: (aliaz) ->
     @alias = new SqlLiteral(aliaz)
     @
 
-u(FunctionNode).extend(Expressions)
 
 exports = module.exports = FunctionNode

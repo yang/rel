@@ -21,7 +21,7 @@ class TreeManager extends FactoryMethods
     @ast = u(@ast).clone()
 
   where: (expr) ->
-    if @.constructor == expr
+    if TreeManager == expr.constructor
       expr = expr.ast
     @ctx.wheres.push expr
     @

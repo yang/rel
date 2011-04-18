@@ -1,5 +1,4 @@
-TableAlias = require './lib/nodes/table-alias'
+Nodes = require './lib/nodes/nodes'
 
-x = new TableAlias('test', 'foo')
+x = new Nodes.LessThan(null, 'test')
 console.log x
-

@@ -164,6 +164,15 @@ class ToSql extends Visitor
     e = if o.alias then " AS #{@visit o.alias}" else ''
     "EXISTS (#{@visit o.expressions})#{e}"
 
+  visitRelNodesUnion: (o) ->
+    "( #{@visit o.left} UNION #{@visit o.right} )"
+
+  visitRelNodesLessThan: (o) ->
+    "#{@visit o.left} < #{@visit o.right}"
+
+  visitRelNodesGreaterThan: (o) ->
+    "#{@visit o.left} > #{@visit o.right}"
+
 
 
 

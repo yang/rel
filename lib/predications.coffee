@@ -1,12 +1,17 @@
 u = require 'underscore'
-Nodes = require './nodes/nodes'
 
 Predications =
+  nodes: ->
+    require './nodes/nodes'
+
   as: (other) ->
-    new Nodes.As @, new Nodes.SqlLiteral(other)
+    n = @nodes()
+    lit = new n.SqlLiteral(other)
+    new n.As @, lit
     
   notEq: (other) ->
-    new Nodes.NotEqual @, other
+    n = @nodes()
+    new n.NotEqual @, other
   
   notEqAny: (others) ->
     @groupingAny 'not_eq', others
@@ -15,7 +20,8 @@ Predications =
     @groupingAll 'not_eq', others
     
   eq: (other) ->
-    new Nodes.Equality @, others
+    n = @nodes()
+    new n.Equality @, others
     
   eqAny: (others) ->
     @groupingAny 'eq', others
@@ -25,11 +31,12 @@ Predications =
     
   # TODO Ranges won't work here. Should support an array.
   in: (other) ->
+    n = @nodes()
     switch other.constructor
       when SelectManager
-        new Nodes.In(@, other.ast)
+        new n.In(@, other.ast)
       else
-        new Nodes.In @, other
+        new n.In @, other
     
   inAny: (others) ->
     @groupingAny 'in', others
@@ -39,11 +46,12 @@ Predications =
     
   # TODO Ranges won't work here. Should support an array.
   notIn: (other) ->
+    n = @nodes()
     switch other.constructor
       when SelectManager
-        new Nodes.NotIn(@, other.ast)
+        new n.NotIn(@, other.ast)
       else
-        new Nodes.NotIn(@, other)
+        new n.NotIn(@, other)
   
   notInAny: (others) ->
     @groupingAny 'not_in', others
@@ -52,7 +60,8 @@ Predications =
     @groupingAll 'not_in', others
     
   matches: (other) ->
-    new Nodes.Matches @, other
+    n = @nodes()
+    new n.Matches @, other
     
   matchesAny: (others) ->
     @groupingAny 'matches', others
@@ -61,7 +70,8 @@ Predications =
     @groupingAll 'matches', others
     
   doesNotMatch: (other) ->
-    new Nodes.DoesNotMatch @, other
+    n = @nodes()
+    new n.DoesNotMatch @, other
     
   doesNotMatchAny: (others) ->
     @groupingAny 'does_not_match', others
@@ -71,7 +81,8 @@ Predications =
     
   # Greater than
   gteq: (right) ->
-    new Nodes.GreaterThanOrEqual @, right
+    n = @nodes()
+    new n.GreaterThanOrEqual @, right
     
   gteqAny: (others) ->
     @groupingAny 'gteq', others
@@ -80,7 +91,8 @@ Predications =
     @groupingAll 'gteq', others
     
   gt: (right) ->
-    new Nodes.GreaterThan @, right
+    n = @nodes()
+    new n.GreaterThan @, right
     
   gtAny: (others) ->
     @groupingAny 'gt', others
@@ -90,7 +102,8 @@ Predications =
     
   # Less than
   lteq: (right) ->
-    new Nodes.LessThanOrEqual @, right
+    n = @nodes()
+    new n.LessThanOrEqual @, right
     
   lteqAny: (others) ->
     @groupingAny 'lteq', others
@@ -99,7 +112,8 @@ Predications =
     @groupingAll 'lteq', others
     
   lt: (right) ->
-    new Nodes.LessThan @, right
+    n = @nodes().LessThan
+    new n(@, right)
     
   ltAny: (others) ->
     @groupingAny 'lt', others
@@ -108,23 +122,27 @@ Predications =
     @groupingAll 'lt', others
     
   asc: ->
-    new Nodes.Ordering @, 'asc'
+    n = @nodes()
+    new n.Ordering @, 'asc'
     
   desc: ->
-    new Nodes.Ordering @, 'desc'
+    n = @nodes()
+    new n.Ordering @, 'desc'
     
   groupingAny: (methodId, others) ->
     others = u(others).clone()
     first = others[methodId](others.shift())
     
-    new Nodes.Grouping u(others).reduce first, (memo, expr) ->
-      new Nodes.Or([memo, @[methodId](expr)])
+    n = @nodes()
+    new n.Grouping u(others).reduce first, (memo, expr) ->
+      new n.Or([memo, @[methodId](expr)])
     
   groupingAll: (methodId, others) ->
     others = u(others).clone()
     first = others[methodId](others.shift())
     
-    new Nodes.Grouping u(others).reduce first, (memo, expr) ->
-      new Nodes.And([memo, @[methodId](expr)])
-      
+    n = @nodes()
+    new n.Grouping u(others).reduce first, (memo, expr) ->
+      new n.And([memo, @[methodId](expr)])
+
 exports = module.exports = Predications

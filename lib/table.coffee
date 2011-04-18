@@ -25,4 +25,7 @@ class Table
     u(new Nodes.TableAlias(@, name)).tap (node) =>
       @aliases.push node
 
+  column: (name) ->
+    new Attributes.Attribute @, name
+
 module.exports = Table

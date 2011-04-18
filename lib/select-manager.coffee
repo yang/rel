@@ -92,4 +92,15 @@ class SelectManager extends TreeManager
   exists: ->
     new Nodes.Exists(@ast)
 
+  union: (operation, other=null) ->
+    nodeClass = if other?
+      Nodes["Union#{operation.toString()}"] # TODO capitalize the operation.
+    else
+      other = operation
+      Nodes.Union
+
+    new nodeClass @.ast, other.ast
+
+
+
 exports = module.exports = SelectManager

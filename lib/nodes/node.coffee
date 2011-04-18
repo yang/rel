@@ -1,4 +1,5 @@
 Nodes = require './nodes'
+Visitors = require '../visitors'
 
 class Node
   not: ->
@@ -11,5 +12,7 @@ class Node
     new Nodes.And([@, right])
     
   # TODO Implement each and toSql
+  toSql: ->
+    Visitors.visitor().accept @
   
 exports = module.exports = Node

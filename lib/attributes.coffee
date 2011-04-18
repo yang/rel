@@ -1,15 +1,12 @@
 u = require 'underscore'
-Expressions = require './expressions'
-Predications = require './predications'
 # TODO Implement math
 
 class Attribute
   constructor: (@relation, @name) ->
-
-u(Attribute).extend(Expressions)
-u(Attribute).extend(Predications)
-
-
+    Expressions = require './expressions'
+    Predications = require './predications'
+    u(@).extend Expressions
+    u(@).extend Predications
 
 Attributes = 
   Attribute: Attribute
