@@ -228,6 +228,14 @@ tests = vows.describe('Querying stuff').addBatch
         mgr = table.from table
         assert.equal mgr.lock().toSql(), 'SELECT FROM "users"'
 
+    'orders':
+      'returns order clauses': ->
+        table = new Table 'users'
+        manager = new SelectManager
+        order = table.column 'id'
+        manager.order table.column['id']
+        assert.equal manager.order, [order]
+
 
 
 
