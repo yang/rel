@@ -236,6 +236,29 @@ tests = vows.describe('Querying stuff').addBatch
         manager.order table.column('id')
         assert.equal manager.orders()[0].name, order.name
 
+    'order':
+      'generates order clauses': ->
+        table = new Table 'users'
+        manager = new SelectManager()
+        manager.project Rel.star()
+        manager.from table
+        manager.order table.column('id')
+        assert.equal manager.toSql(), 'SELECT * FROM "users" ORDER BY "users"."id"'
+
+      'it takes args...': ->
+        table = new Table 'users'
+        manager = new SelectManager()
+        manager.project Rel.star()
+        manager.from table
+        manager.order table.column('id'), table.column('name')
+        assert.equal manager.toSql(), 'SELECT * FROM "users" ORDER BY "users"."id", "users"."name"'
+
+      'chains': ->
+        table = new Table 'users'
+        manager = new SelectManager()
+        assert.equal manager.order(table.column('id')), manager
+
+
 
 
 
