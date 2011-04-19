@@ -308,8 +308,33 @@ tests = vows.describe('Querying stuff').addBatch
         assert.equal 'foo', join.left
         assert.equal 'bar', join.right
 
-
     # TODO put in insert manager, see ruby tests.
+
+    'join':
+      'responds to join': ->
+        left = new Table 'users'
+        right = left.alias()
+        predicate = left.column('id').eq(right.column('id'))
+        manager = new SelectManager()
+
+        manager.from left
+        manager.join(right).on(predicate)
+        assert.equal manager.toSql(), 'SELECT FROM "users" INNER JOIN "users" "users_2" ON "users"."id" = "users_2"."id"'
+
+      'it takes a class': ->
+        left = new Table 'users'
+        right = left.alias()
+        predicate = left.column('id').eq(right.column('id'))
+        manager = new SelectManager()
+
+        manager.from left
+        manager.join(right, Nodes.OuterJoin).on(predicate)
+        assert.equal manager.toSql(), 'SELECT FROM "users" LEFT OUTER JOIN "users" "users_2" ON "users"."id" = "users_2"."id"'
+
+      'it noops on null': ->
+        manager = new SelectManager()
+        assert.equal manager.join(null), manager
+
 
     
 

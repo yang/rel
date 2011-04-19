@@ -207,6 +207,9 @@ class ToSql extends Visitor
 
   visitRelNodesLock: (o) ->
 
+  visitRelNodesOuterJoin: (o) ->
+    "LEFT OUTER JOIN #{@visit o.left} #{@visit o.right}"
+
 
 
 
