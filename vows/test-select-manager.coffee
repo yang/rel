@@ -209,6 +209,18 @@ tests = vows.describe('Querying stuff').addBatch
         string = 'WITH RECURSIVE "replies" AS ( SELECT "comments"."id", "comments"."parent_id" FROM "comments" WHERE "comments"."id" = 42 UNION SELECT "comments"."id", "comments"."parent_id" FROM "comments" INNER JOIN "replies" ON "comments"."parent_id" = "replies"."id" ) SELECT * FROM "replies"'
         assert.equal manager.toSql(), string
 
+    'ast':
+      'it should return the ast': ->
+        table = new Table 'users'
+        mgr = table.from table
+        ast = mgr.ast
+        assert.equal mgr.visitor.accept(ast), mgr.toSql()
+
+    'taken':
+      'should return limit': ->
+        manager = new SelectManager()
+        manager.take(10)
+        assert.equal manager.taken(), 10
 
 
 

@@ -123,6 +123,30 @@ class SelectManager extends TreeManager
 
     @
 
+  take: (limit) ->
+    if limit?
+      @ast.limit = new Nodes.Limit(limit)
+      @ctx.top = new Nodes.Top(limit)
+    else
+      @ast.limit = null
+      @ctx.top = null
+
+    @
+  # NOTE: Changed from the original limit because I don't think turning a limit off is used
+  # very often. So now if you want to a limit off you need to call take(null).
+  limit: (limit) ->
+    if limit?
+      @take(limit)
+    else
+      @ast.limit.expr
+
+  taken: ->
+    @limit()
+
+
+
+
+
 
 
 exports = module.exports = SelectManager
