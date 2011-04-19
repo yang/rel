@@ -222,6 +222,13 @@ tests = vows.describe('Querying stuff').addBatch
         manager.take(10)
         assert.equal manager.taken(), 10
 
+    'lock':
+      'adds a lock': ->
+        table = new Table 'users'
+        mgr = table.from table
+        assert.equal mgr.lock().toSql(), 'SELECT FROM "users"'
+
+
 
 
 

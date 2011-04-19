@@ -143,6 +143,13 @@ class SelectManager extends TreeManager
   taken: ->
     @limit()
 
+  lock: (locking=Rel.sql('FOR UPDATE')) ->
+    @ast.lock = new Nodes.Lock locking
+    @
+
+  locked: ->
+    @ast.lock
+
 
 
 

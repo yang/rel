@@ -205,6 +205,8 @@ class ToSql extends Visitor
     else
       "#{@visit o.left} IS NULL"
 
+  visitRelNodesLock: (o) ->
+
 
 
 
