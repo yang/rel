@@ -258,6 +258,31 @@ tests = vows.describe('Querying stuff').addBatch
         manager = new SelectManager()
         assert.equal manager.order(table.column('id')), manager
 
+    'on':
+      'takes two params': ->
+        left = new Table 'users'
+        right = left.alias()
+        predicate = left.column('id').eq(right.column('id'))
+        manager = new SelectManager()
+
+        manager.from left
+        manager.join(right).on(predicate, predicate)
+        assert.equal manager.toSql(), 
+          'SELECT FROM "users" INNER JOIN "users" "users_2" ON "users"."id" = "users_2"."id" AND "users"."id" = "users_2"."id"'
+
+      'takes two params': ->
+        left = new Table 'users'
+        right = left.alias()
+        predicate = left.column('id').eq(right.column('id'))
+        manager = new SelectManager()
+
+        manager.from left
+        manager.join(right).on(predicate, predicate, left.column('name').eq(right.column('name')))
+        assert.equal manager.toSql(), 
+          'SELECT FROM "users" INNER JOIN "users" "users_2" ON "users"."id" = "users_2"."id" AND "users"."id" = "users_2"."id" AND "users"."name" = "users_2"."name"'
+
+
+
 
 
 

@@ -6,6 +6,7 @@ Unary = require './unary'
 TableAlias = require './table-alias'
 And = require './and'
 FunctionNode = require './function-node'
+Attribute = require '../attribute'
 
 Nodes = 
   SelectStatement: SelectStatement
@@ -27,6 +28,8 @@ Nodes =
       @relation = @left
       @tableAlias = @name
       @tableName = @relation.name
+    column: (name) ->
+      new Attribute(@, name)
   FunctionNode: FunctionNode
   Sum: class Sum extends FunctionNode
   Exists: class Exists extends FunctionNode
