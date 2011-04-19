@@ -37,6 +37,9 @@ class SelectManager extends TreeManager
       @ctx.source.left = null
     @
 
+  froms: ->
+    u(@ast.cores.map (x) -> x.from()).compact()
+
   group: (columns...) ->
     for column in columns
       c = if column.constructor == String

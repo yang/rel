@@ -281,6 +281,37 @@ tests = vows.describe('Querying stuff').addBatch
         assert.equal manager.toSql(), 
           'SELECT FROM "users" INNER JOIN "users" "users_2" ON "users"."id" = "users_2"."id" AND "users"."id" = "users_2"."id" AND "users"."name" = "users_2"."name"'
 
+    'froms':
+      'it should hand back froms': ->
+        relation = new SelectManager()
+        assert.equal [].length, relation.froms().length
+
+    'nodes':
+      'it should create AND nodes': ->
+        relation = new SelectManager()
+        children = ['foo', 'bar', 'baz']
+        clause = relation.createAnd children
+        assert.equal clause.constructor, Nodes.And
+        assert.equal clause.children, children
+
+      'it should create JOIN nodes': ->
+        relation = new SelectManager()
+        join = relation.createJoin 'foo', 'bar'
+        assert.equal join.constructor, Nodes.InnerJoin
+        assert.equal 'foo', join.left
+        assert.equal 'bar', join.right
+
+      'it should create JOIN nodes with a class': ->
+        relation = new SelectManager()
+        join = relation.createJoin 'foo', 'bar', Nodes.OuterJoin
+        assert.equal join.constructor, Nodes.OuterJoin
+        assert.equal 'foo', join.left
+        assert.equal 'bar', join.right
+
+
+    # TODO put in insert manager, see ruby tests.
+
+    
 
 
 
