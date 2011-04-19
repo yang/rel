@@ -108,6 +108,9 @@ class SelectManager extends TreeManager
   minus: (other) ->
     @except other
 
+  intersect: (other) ->
+    new Nodes.Intersect @ast, other.ast
+
 
 
 exports = module.exports = SelectManager

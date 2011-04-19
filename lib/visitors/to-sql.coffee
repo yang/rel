@@ -185,6 +185,9 @@ class ToSql extends Visitor
   visitRelNodesBetween: (o) ->
     "#{@visit o.left} BETWEEN (#{@visit o.right})"
 
+  visitRelNodesIntersect: (o) ->
+    "( #{@visit o.left} INTERSECT #{@visit o.right} )"
+
 
 
 
