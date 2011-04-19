@@ -1,4 +1,6 @@
 u = require 'underscore'
+SelectManager = require './select-manager'
+Range = require './range'
 
 Predications =
   nodes: ->
@@ -35,6 +37,8 @@ Predications =
     switch other.constructor
       when SelectManager
         new n.In(@, other.ast)
+      when Range
+        new n.Between(@, new n.And([other.start, other.finish])) # Start and finish from range.
       else
         new n.In @, other
     

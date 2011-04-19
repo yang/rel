@@ -1,4 +1,5 @@
 Nodes = require './lib/nodes/nodes'
+Range = require './lib/range'
 
 Rel =
   VERSION: '0.0.1'
@@ -8,5 +9,8 @@ Rel =
 
   star: ->
     @sql '*'
+
+  range: (start, finish) ->
+    new Range(start, finish)
 
 exports = module.exports = Rel

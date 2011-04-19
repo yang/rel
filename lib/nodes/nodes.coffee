@@ -60,5 +60,12 @@ Nodes =
   On: class On extends Unary
   Top: class Top extends Unary
   Lock: class Lock extends Unary
+  Equality: class Equality extends Binary
+    constructor: (@left, @right) ->
+      super @left, @right
+      @operator = '=='
+      @operand1 = @left
+      @operand2 = @right
+  In: class In extends Equality
   
 exports = module.exports = Nodes

@@ -144,6 +144,27 @@ tests = vows.describe('Querying stuff').addBatch
         node = m1.union 'all', m2
         assert.equal node.toSql(), 
           '( SELECT * FROM "users" WHERE "users"."age" < 18 UNION ALL SELECT * FROM "users" WHERE "users"."age" > 99 )'
+    'except':
+      topic: ->
+        table = new Table 'users'
+        m1 = new SelectManager table
+        m1.project Rel.star()
+        m1.where(table.column('age').in(Rel.range(18,60)))
+
+        m2 = new SelectManager table
+        m2.project Rel.star()
+        m2.where(table.column('age').in(Rel.range(40,99)))
+
+        [m1, m2]
+
+      'should except two managers': (topics) ->
+        m1 = topics[0] 
+        m2 = topics[1]
+        node = m1.except m2
+        assert.equal node.toSql(), 
+          '( SELECT * FROM "users" WHERE "users"."age" BETWEEN (18 AND 60) EXCEPT SELECT * FROM "users" WHERE "users"."age" BETWEEN (40 AND 99) )'
+
+
 
 
 

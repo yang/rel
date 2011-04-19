@@ -94,12 +94,19 @@ class SelectManager extends TreeManager
 
   union: (operation, other=null) ->
     nodeClass = if other?
-      Nodes["Union#{operation.toString()}"] # TODO capitalize the operation.
+      op = operation.toString()
+      capital = op[0].toUpperCase() + op.slice(1, op.length)
+      Nodes["Union#{capital}"] # TODO capitalize the operation.
     else
       other = operation
       Nodes.Union
 
     new nodeClass @.ast, other.ast
+
+  except: (other) ->
+    new Nodes.Except(@ast, other.ast)
+  minus: (other) ->
+    @except other
 
 
 
