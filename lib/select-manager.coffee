@@ -91,12 +91,14 @@ class SelectManager extends TreeManager
 
   exists: ->
     new Nodes.Exists(@ast)
+    
+  capitalize: (string) ->
+    op = string.toString()
+    op[0].toUpperCase() + op.slice(1, op.length)
 
   union: (operation, other=null) ->
     nodeClass = if other?
-      op = operation.toString()
-      capital = op[0].toUpperCase() + op.slice(1, op.length)
-      Nodes["Union#{capital}"] # TODO capitalize the operation.
+      Nodes["Union#{@capitalize(operation)}"] # TODO capitalize the operation.
     else
       other = operation
       Nodes.Union
@@ -110,6 +112,16 @@ class SelectManager extends TreeManager
 
   intersect: (other) ->
     new Nodes.Intersect @ast, other.ast
+
+  with: (subqueries...) ->
+    nodeClass = if u(subqueries).first().constructor == String
+      Nodes["With#{@capitalize(subqueries.shift())}"]
+    else
+      Nodes.With
+
+    @ast.with = new nodeClass(u(subqueries).flatten())
+
+    @
 
 
 

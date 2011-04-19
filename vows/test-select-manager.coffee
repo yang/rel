@@ -184,10 +184,30 @@ tests = vows.describe('Querying stuff').addBatch
         assert.equal node.toSql(),
           '( SELECT * FROM "users" WHERE "users"."age" > 18 INTERSECT SELECT * FROM "users" WHERE "users"."age" < 99 )'
 
+    'with':
+      'should support WITH RECURSIVE': ->
+        comments = new Table 'comments'
+        commentsId = comments.column 'id'
+        commentsParentId = comments.column 'parent_id'
 
+        replies = new Table 'replies'
+        repliedId = replies.column 'id'
 
+        recursiveTerm = new SelectManager()
+        recursiveTerm.from(comments).project(commentsId, commentsParentId).where(commentsId.eq(42))
 
+        nonRecursiveTerm = new SelectManager()
+        nonRecursiveTerm.from(comments).project(commentsId, commentsParentId).join(replies).on(commentsParentId.eq(repliedId))
 
+        union = recursiveTerm.union(nonRecursiveTerm)
+
+        asStatement = new Nodes.As replies, union
+
+        manager = new SelectManager()
+        manager.with('recursive', asStatement).from(replies).project(Rel.star())
+
+        string = 'WITH RECURSIVE "replies" AS ( SELECT "comments"."id", "comments"."parent_id" FROM "comments" WHERE "comments"."id" = 42 UNION SELECT "comments"."id", "comments"."parent_id" FROM "comments" INNER JOIN "replies" ON "comments"."parent_id" = "replies"."id" ) SELECT * FROM "replies"'
+        assert.equal manager.toSql(), string
 
 
 

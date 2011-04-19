@@ -23,7 +23,7 @@ Predications =
     
   eq: (other) ->
     n = @nodes()
-    new n.Equality @, others
+    new n.Equality @, other
     
   eqAny: (others) ->
     @groupingAny 'eq', others

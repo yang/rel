@@ -67,5 +67,9 @@ Nodes =
       @operand1 = @left
       @operand2 = @right
   In: class In extends Equality
+  With: class With extends Unary
+    constructor: (@expr) ->
+      @children = @expr
+  WithRecursive: class WithRecursive extends With
   
 exports = module.exports = Nodes
