@@ -20,6 +20,9 @@ class SelectManager extends TreeManager
     @ast.orders = @ast.orders.concat expr.map (x) =>
       if x.constructor == String then new Nodes.SqlLiteral(x.toString()) else x
     @
+
+  orders: ->
+    @ast.orders
     
   from: (table) ->
     table = new Nodes.SqlLiteral(table) if table? and table.constructor == String

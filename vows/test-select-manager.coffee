@@ -233,8 +233,8 @@ tests = vows.describe('Querying stuff').addBatch
         table = new Table 'users'
         manager = new SelectManager
         order = table.column 'id'
-        manager.order table.column['id']
-        assert.equal manager.order, [order]
+        manager.order table.column('id')
+        assert.equal manager.orders()[0].name, order.name
 
 
 
