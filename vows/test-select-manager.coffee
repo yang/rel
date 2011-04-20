@@ -428,6 +428,38 @@ tests = vows.describe('Querying stuff').addBatch
         manager.project(new Nodes.SqlLiteral('*'))
         assert.equal manager.toSql(), 'SELECT *'
 
+    'take':
+      'knows take': ->
+        table = new Table 'users'
+        manager = new SelectManager()
+        manager.from(table).project(table.column('id'))
+        manager.where(table.column('id').eq(1))
+        manager.take 1
+
+        assert.equal manager.toSql(), 'SELECT "users"."id" FROM "users" WHERE "users"."id" = 1 LIMIT 1'
+
+      'chains': ->
+        manager = new SelectManager()
+        assert.equal manager.take(1).constructor, SelectManager
+
+      'removes limit when null is passed to take only (not limit)': ->
+        manager = new SelectManager()
+        manager.limit(10)
+        manager.take(null)
+        assert.equal manager.toSql(), 'SELECT'
+
+    'join':
+      'joins itself': ->
+        left = new Table 'users'
+        right = left.alias()
+        predicate = left.column('id').eq(right.column('id'))
+
+        mgr = left.join right
+        mgr.project(new SqlLiteral('*'))
+        assert.equal mgr.on(predicate).constructor, SelectManager
+
+        assert.equal mgr.toSql(), 'SELECT * FROM "users" INNER JOIN "users" "users_2" ON "users"."id" = "users_2"."id"'
+
 
 
 

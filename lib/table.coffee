@@ -28,4 +28,12 @@ class Table
   column: (name) ->
     new Attributes.Attribute @, name
 
+  join: (relation, klass=Nodes.InnerJoin) ->
+    return @from(@) unless relation?
+
+    switch relation.constructor
+      when String, Nodes.SqlLiteral
+        klass = Nodes.StringJoin
+    @from(@).join(relation, klass)
+
 module.exports = Table

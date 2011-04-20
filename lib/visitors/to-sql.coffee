@@ -213,6 +213,12 @@ class ToSql extends Visitor
   visitRelNodesStringJoin: (o) ->
     @visit o.left
 
+  visitRelNodesTop: (o) ->
+    ""
+
+  visitRelNodesLimit: (o) ->
+    "LIMIT #{@visit o.expr}"
+
 
 
 

@@ -6,3 +6,4 @@
 - In AREL/test_select_manager:790 — the tests takes strings and takes
   literals are the same. One should actually take a string. Submit a
   pull request for that.
+- Talk about AREL having very circular coupling.
