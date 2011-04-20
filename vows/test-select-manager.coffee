@@ -418,6 +418,17 @@ tests = vows.describe('Querying stuff').addBatch
         manager.project(new Nodes.SqlLiteral('foo'), new Nodes.SqlLiteral('bar'))
         assert.equal manager.toSql(), 'SELECT foo, bar'
 
+      'takes strings': ->
+        manager = new SelectManager()
+        manager.project('*')
+        assert.equal manager.toSql(), 'SELECT *'
+
+      'takes sql literals': ->
+        manager = new SelectManager()
+        manager.project(new Nodes.SqlLiteral('*'))
+        assert.equal manager.toSql(), 'SELECT *'
+
+
 
 
 
