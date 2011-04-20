@@ -173,6 +173,11 @@ class SelectManager extends TreeManager
     new Visitors.OrderClauses().accept(@ast).map (x) =>
       new Nodes.SqlLiteral x
 
+  whereSql: ->
+    return if u(@ctx.wheres).isEmpty()
+
+    viz = new Visitors.WhereSql()
+    new Nodes.SqlLiteral(viz.accept(@ctx))
 
 
 

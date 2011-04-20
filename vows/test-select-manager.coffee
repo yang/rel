@@ -404,6 +404,11 @@ tests = vows.describe('Querying stuff').addBatch
         manager.from table
         manager.where table.column('id').eq(10)
         assert.equal manager.whereSql(), 'WHERE "users"."id" = 10'
+      'returns null when there are no wheres': ->
+        table = new Table 'users'
+        manager = new SelectManager()
+        manager.from table
+        assert.equal manager.whereSql(), null
 
 
 
