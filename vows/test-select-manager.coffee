@@ -410,6 +410,14 @@ tests = vows.describe('Querying stuff').addBatch
         manager.from table
         assert.equal manager.whereSql(), null
 
+    # TODO Implement Update
+
+    'project':
+      'takes multiple args': ->
+        manager = new SelectManager()
+        manager.project(new Nodes.SqlLiteral('foo'), new Nodes.SqlLiteral('bar'))
+        assert.equal manager.toSql(), 'SELECT foo, bar'
+
 
 
 
