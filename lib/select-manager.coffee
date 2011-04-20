@@ -169,6 +169,10 @@ class SelectManager extends TreeManager
     sql = u(u(@visitor).clone()).extend(Visitors.JoinSql).accept @ctx
     new Nodes.SqlLiteral sql
 
+  orderClauses: ->
+    new Visitors.OrderClauses().accept(@ast).map (x) =>
+      new Nodes.SqlLiteral x
+
 
 
 

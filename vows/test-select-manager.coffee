@@ -360,6 +360,40 @@ tests = vows.describe('Querying stuff').addBatch
         manager = new SelectManager()
         assert.isNull manager.joinSql()
 
+    'order clauses':
+      'returns order clauses as a list': ->
+        table = new Table('users')
+        manager = new SelectManager()
+        manager.from table
+        manager.order table.column('id')
+        assert.equal manager.orderClauses()[0], '"users"."id"'
+
+    'group':
+      'takes an attribute': ->
+        table = new Table 'users'
+        manager = new SelectManager()
+        manager.from table
+        manager.group table.column('id')
+        assert.equal manager.toSql(), 'SELECT FROM "users" GROUP BY "users"."id"'
+
+      'chaining': ->
+        table = new Table 'users'
+        manager = new SelectManager()
+        assert.equal manager.group(table.column('id')).constructor.name, manager.constructor.name
+
+      'takes multiple args': ->
+        table = new Table 'users'
+        manager = new SelectManager()
+        manager.from table
+        manager.group table.column('id'), table.column('name')
+        assert.equal manager.toSql(), 'SELECT FROM "users" GROUP BY "users"."id", "users"."name"'
+
+      'it makes strings literals': ->
+        table = new Table 'users'
+        manager = new SelectManager()
+        manager.from table
+        manager.group 'foo'
+        assert.equal manager.toSql(), 'SELECT FROM "users" GROUP BY foo'
 
 
 

@@ -77,7 +77,7 @@ class ToSql extends Visitor
       ("#{(o.projections.map (x) => @visit(x)).join(', ')}"),
       (@visit(o.source)),
       ("WHERE #{(o.wheres.map (x) => @visit(x)).join ' AND ' }" unless u(o.wheres).isEmpty()),
-      ("GROUP BY #{(o.groups.map (x) => @visit(x)).join ' AND ' }" unless u(o.groups).isEmpty()),
+      ("GROUP BY #{(o.groups.map (x) => @visit(x)).join ', ' }" unless u(o.groups).isEmpty()),
       (@visit(o.having) if o.having?)
     ]).compact().join(' ')
 
