@@ -2,6 +2,7 @@ u = require 'underscore'
 Nodes = require './nodes/nodes'
 TreeManager = require './tree-manager'
 Rel = require '../rel'
+Visitors = require './visitors'
 
 class SelectManager extends TreeManager
   constructor: (table) ->
@@ -26,10 +27,15 @@ class SelectManager extends TreeManager
     
   from: (table) ->
     table = new Nodes.SqlLiteral(table) if table? and table.constructor == String
-    
     if table?
       switch table.constructor
         when Nodes.Join
+          @ctx.source.right.push table
+        when Nodes.InnerJoin
+          @ctx.source.right.push table
+        when Nodes.OuterJoin
+          @ctx.source.right.push table
+        when Nodes.StringJoin
           @ctx.source.right.push table
         else
           @ctx.source.left = table
@@ -157,6 +163,11 @@ class SelectManager extends TreeManager
     @ast.lock
 
 
+  joinSql: ->
+    return null if (@ctx.source.right == null or u(@ctx.source.right).isEmpty())
+
+    sql = u(u(@visitor).clone()).extend(Visitors.JoinSql).accept @ctx
+    new Nodes.SqlLiteral sql
 
 
 

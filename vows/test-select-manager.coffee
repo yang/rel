@@ -335,15 +335,30 @@ tests = vows.describe('Querying stuff').addBatch
         manager = new SelectManager()
         assert.equal manager.join(null), manager
 
+    'joins':
+      'returns join sql': ->
+        table = new Table 'users'
+        alias = table.alias()
+        manager = new SelectManager()
+        manager.from(new Nodes.InnerJoin(alias, table.column('id').eq(alias.column('id'))))
+        assert.equal manager.joinSql().toString(), 'INNER JOIN "users" "users_2" "users"."id" = "users_2"."id"'
 
-    
+      'returns outer join sql': ->
+        table = new Table 'users'
+        alias = table.alias()
+        manager = new SelectManager()
+        manager.from(new Nodes.OuterJoin(alias, table.column('id').eq(alias.column('id'))))
+        assert.equal manager.joinSql().toString(), 'LEFT OUTER JOIN "users" "users_2" "users"."id" = "users_2"."id"'
 
+      'return string join sql': ->
+        table = new Table 'users'
+        manager = new SelectManager()
+        manager.from new Nodes.StringJoin('hello')
+        assert.equal manager.joinSql().toString(), '"hello"' # TODO not sure if this should get quoted. It isn't in ruby tests.
 
-
-
-
-
-
+      'returns nil join sql': ->
+        manager = new SelectManager()
+        assert.isNull manager.joinSql()
 
 
 
