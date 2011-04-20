@@ -460,9 +460,20 @@ tests = vows.describe('Querying stuff').addBatch
 
         assert.equal mgr.toSql(), 'SELECT * FROM "users" INNER JOIN "users" "users_2" ON "users"."id" = "users_2"."id"'
 
+    'from':
+      'makes sql': ->
+        table = new Table 'users'
+        manager = new SelectManager()
 
+        manager.from table
+        manager.project table.column('id')
+        assert.equal manager.toSql(), 'SELECT "users"."id" FROM "users"'
 
-
+      'chains': ->
+        table = new Table 'users'
+        manager = new SelectManager()
+        assert.equal manager.from(table).project(table.column('id')).constructor, SelectManager
+        assert.equal manager.toSql(), 'SELECT "users"."id" FROM "users"'
 
 
 tests.export module
