@@ -7,9 +7,11 @@ TableAlias = require './table-alias'
 And = require './and'
 FunctionNode = require './function-node'
 Attribute = require '../attribute'
+InsertStatement = require './insert-statement'
 
 Nodes = 
   SelectStatement: SelectStatement
+  InsertStatement: InsertStatement
   SqlLiteral: SqlLiteral
   SelectCore: SelectCore
   Binary: Binary
@@ -74,5 +76,20 @@ Nodes =
     constructor: (@expr) ->
       @children = @expr
   WithRecursive: class WithRecursive extends With
+  Values: class Values extends Binary
+    constructor: (exprs, columns=[]) ->
+      super exprs, columns
+
+    expressions: (e=null) ->
+      if e?
+        @left = e
+      else
+        @left
+
+    columns: (c=null) ->
+      if c?
+        @right = c
+      else
+        @right
   
 exports = module.exports = Nodes

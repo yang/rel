@@ -1,6 +1,7 @@
 u = require 'underscore'
 Visitor = require './visitor'
 Nodes = require '../nodes/nodes'
+SqlLiteral = require '../nodes/sql-literal'
 
 class ToSql extends Visitor
   constructor: ->
@@ -48,10 +49,19 @@ class ToSql extends Visitor
 
   visitRelNodesInsertStatement: (o) ->
     u([
-      "INSERT INTO #{@visit o.relation}",
+      "INSERT INTO #{if o.relation? then @visit o.relation else 'NULL'}",
       ("(#{(u(o.columns).map (x) => @quoteColumnName(x)).join ', '})" unless u(o.columns).isEmpty()),
       (@visit o.values if o.values?)
     ]).compact().join(' ')
+
+  visitRelNodesValues: (o) ->
+    "VALUES (#{(u(o.expressions()).map (expr) =>
+      if expr.constructor == SqlLiteral
+        @visitRelNodesSqlLiteral expr
+      else
+        @quote(expr, null)
+    ).join ', '})"
+
 
   visitRelNodesExist: (o) ->
     "EXISTS (#{@visit o.expressions})#{if o.alias then " AS #{visit o.alias}" else ''}"
@@ -218,6 +228,7 @@ class ToSql extends Visitor
 
   visitRelNodesLimit: (o) ->
     "LIMIT #{@visit o.expr}"
+
 
 
 
