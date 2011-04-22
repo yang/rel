@@ -13,18 +13,25 @@ tests = vows.describe('Inserting stuff').addBatch
     'new': ->
       assert.isNotNull new InsertManager()
 
-    'can create a Values node': ->
+    # 'can create a Values node': ->
+    #   table = new Table 'users'
+    #   manager = new InsertManager()
+    #   values = manager.createValues ['a', 'b'], ['c', 'd']
+
+    #   assert.equal values.left.length, ['a', 'b'].length
+    #   assert.equal values.right.length, ['c', 'd'].length
+
+    # 'allows sql literals': ->
+    #   table = new Table 'users'
+    #   manager = new InsertManager()
+    #   manager.values(manager.createValues [Rel.star()], ['a'])
+    #   assert.equal manager.toSql(), 'INSERT INTO NULL VALUES (*)'
+
+    'inserts false': ->
       table = new Table 'users'
       manager = new InsertManager()
-      values = manager.createValues ['a', 'b'], ['c', 'd']
+      manager.insert [[table.column('bool'), false]]
+      assert.equal manager.toSql(), 'INSERT INTO "users" ("bool") VALUES (\'f\')'
 
-      assert.equal values.left.length, ['a', 'b'].length
-      assert.equal values.right.length, ['c', 'd'].length
-
-    'allows sql literals': ->
-      table = new Table 'users'
-      manager = new InsertManager()
-      manager.values(manager.createValues [Rel.star()], ['a'])
-      assert.equal manager.toSql(), 'INSERT INTO NULL VALUES (*)'
 
 tests.export module

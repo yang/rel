@@ -2,6 +2,7 @@ u = require 'underscore'
 Visitor = require './visitor'
 Nodes = require '../nodes/nodes'
 SqlLiteral = require '../nodes/sql-literal'
+Attributes = require '../attributes'
 
 class ToSql extends Visitor
   constructor: ->
@@ -58,6 +59,8 @@ class ToSql extends Visitor
     "VALUES (#{(u(o.expressions()).map (expr) =>
       if expr.constructor == SqlLiteral
         @visitRelNodesSqlLiteral expr
+      else if expr.constructor == Boolean
+        if expr == true then "'t'" else "'f'"
       else
         @quote(expr, null)
     ).join ', '})"
@@ -110,7 +113,13 @@ class ToSql extends Visitor
     @quotedTables[name] ||= if Nodes.SqlLiteral == name.constructor then name else "\"#{name}\""
 
   quoteColumnName: (name) ->
-    @quotedColumns[name] ||= if Nodes.SqlLiteral == name.constructor then name else "\"#{name}\""
+    @quotedColumns[name] ||= 
+      if Nodes.SqlLiteral == name.constructor 
+        name
+      else if Attributes.Attribute == name.constructor
+        @quote name.name
+      else
+        "\"#{name}\""
 
   visitRelNodesArray: (o) ->
     if u(o).empty? then 'NULL' else (o.map (x) => @visit(x)).join(', ')

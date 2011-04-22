@@ -1,3 +1,4 @@
+u = require 'underscore'
 TreeManager = require './tree-manager'
 InsertStatement = require './nodes/insert-statement'
 Nodes = require './nodes/nodes'
@@ -15,5 +16,22 @@ class InsertManager extends TreeManager
 
   values: (values) ->
     @ast.values = values
+
+  insert: (fields) ->
+    return if u(fields).isEmpty()
+
+    if fields.constructor == String
+      @ast.values = new Nodes.SqlLiteral fields
+    else
+      @ast.relation ||= fields[0][0].relation
+
+      values = []
+
+      u(fields).each (field) =>
+        column = field[0]
+        value = field[1]
+        @ast.columns.push column
+        values.push value
+      @ast.values = @createValues values, @ast.columns
 
 exports = module.exports = InsertManager
