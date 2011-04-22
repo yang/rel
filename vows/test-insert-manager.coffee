@@ -13,19 +13,19 @@ tests = vows.describe('Inserting stuff').addBatch
     'new': ->
       assert.isNotNull new InsertManager()
 
-    # 'can create a Values node': ->
-    #   table = new Table 'users'
-    #   manager = new InsertManager()
-    #   values = manager.createValues ['a', 'b'], ['c', 'd']
+    'can create a Values node': ->
+      table = new Table 'users'
+      manager = new InsertManager()
+      values = manager.createValues ['a', 'b'], ['c', 'd']
 
-    #   assert.equal values.left.length, ['a', 'b'].length
-    #   assert.equal values.right.length, ['c', 'd'].length
+      assert.equal values.left.length, ['a', 'b'].length
+      assert.equal values.right.length, ['c', 'd'].length
 
-    # 'allows sql literals': ->
-    #   table = new Table 'users'
-    #   manager = new InsertManager()
-    #   manager.values(manager.createValues [Rel.star()], ['a'])
-    #   assert.equal manager.toSql(), 'INSERT INTO NULL VALUES (*)'
+    'allows sql literals': ->
+      table = new Table 'users'
+      manager = new InsertManager()
+      manager.values(manager.createValues [Rel.star()], ['a'])
+      assert.equal manager.toSql(), 'INSERT INTO NULL VALUES (*)'
 
     'inserts false': ->
       table = new Table 'users'
