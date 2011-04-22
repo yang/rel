@@ -57,7 +57,9 @@ class ToSql extends Visitor
 
   visitRelNodesValues: (o) ->
     "VALUES (#{(u(o.expressions()).map (expr) =>
-      if expr.constructor == SqlLiteral
+      if expr == null
+        'NULL'
+      else if expr.constructor == SqlLiteral
         @visitRelNodesSqlLiteral expr
       else if expr.constructor == Boolean
         if expr == true then "'t'" else "'f'"

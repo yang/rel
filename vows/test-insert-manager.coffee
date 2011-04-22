@@ -33,5 +33,13 @@ tests = vows.describe('Inserting stuff').addBatch
       manager.insert [[table.column('bool'), false]]
       assert.equal manager.toSql(), 'INSERT INTO "users" ("bool") VALUES (\'f\')'
 
+    'inserts false': ->
+      table = new Table 'users'
+      manager = new InsertManager()
+      manager.insert [[table.column('id'), null]]
+      assert.equal manager.toSql(), 'INSERT INTO "users" ("id") VALUES (NULL)'
+
+
+
 
 tests.export module
