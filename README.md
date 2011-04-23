@@ -16,6 +16,10 @@ It still holds the same goals as Arel which are:
 1. Simplifies the generation complex of SQL queries.
 2. Adapts to various RDBMS systems
 
+## Installation
+
+    npm install rel
+
 ## Introduction
 
     users = new Rel.Table 'users'
