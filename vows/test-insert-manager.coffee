@@ -75,6 +75,14 @@ tests = vows.describe('Inserting stuff').addBatch
         manager.into table
         assert.equal manager.toSql(), 'INSERT INTO "users"'
 
+    'columns':
+      'converts to sql': ->
+        table = new Table 'users'
+        manager = new InsertManager()
+        manager.into table
+        manager.columns().push table.column('id')
+        assert.equal manager.toSql(), 'INSERT INTO "users" ("id")'
+
 
     
 
