@@ -2,12 +2,16 @@ u = require 'underscore'
 SelectManager = require './select-manager'
 Attributes = require './attributes'
 Nodes = require './nodes/nodes'
+FactoryMethods = require './factory-methods'
+Crud = require './crud'
 
 class Table
   constructor: (@name) ->
     @columns = null
     @aliases = []
     @tableAlias = null
+    u(@).extend(new FactoryMethods()) # TODO not sure about this.
+    u(@).extend(new Crud())
 
     
   from: (table) ->
@@ -35,5 +39,7 @@ class Table
       when String, Nodes.SqlLiteral
         klass = Nodes.StringJoin
     @from(@).join(relation, klass)
+
+
 
 module.exports = Table
