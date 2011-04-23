@@ -23,6 +23,10 @@ h1, h2, h3, h4 {
   font-weight: 100;
 }
 
+h2 {
+  margin-top: 1.6em;
+}
+
 code {
   font-size: 17px;
 }
