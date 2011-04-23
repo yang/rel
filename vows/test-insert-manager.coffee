@@ -68,6 +68,13 @@ tests = vows.describe('Inserting stuff').addBatch
       manager.insert []
       assert.isNull manager.ast.values
 
+    'into':
+      'converts to sql': ->
+        table = new Table 'users'
+        manager = new InsertManager()
+        manager.into table
+        assert.equal manager.toSql(), 'INSERT INTO "users"'
+
 
     
 
