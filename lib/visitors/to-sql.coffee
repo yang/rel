@@ -44,7 +44,7 @@ class ToSql extends Visitor
     u([
       "UPDATE #{@visit o.relation}",
       ("SET #{(o.values.map (value) => @visit value).join ', '}" unless u(o.values).isEmpty()),
-      ("WHERE #{(wheres.map (x) => @visit x).join ' AND '}" unless u(u.wheres).isEmpty())
+      ("WHERE #{(wheres.map (x) => @visit x).join ' AND '}" unless u(o.wheres).isEmpty())
     ]).compact().join(' ')
 
   buildSubselect: (key, o) ->
