@@ -11,7 +11,7 @@ Rel is a SQL AST manager for Node JS. It is a straight port of https://github.co
 2. It obviously can't use all of the ruby-isms like over-riding the
    array operator so methods are used instead.
 
-It still holds the same goes as Arel which are:
+It still holds the same goals as Arel which are:
 
 1. Simplifies the generation complex of SQL queries.
 2. Adapts to various RDBMS systems
