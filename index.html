@@ -22,15 +22,14 @@
     <div class='container body'>
       <section class='intro'>
         <h1>Rel is a SQL AST manager for Node JS</h1>
-        <p class='large'>It is a straight port of <a href="https://github.com/rails/arel">https://github.com/rails/arel</a>. Although it does have some changes. For me details checkout <a href="https://github.com/cjwoodward/rel">the Github page</a>.</p>
+        <p class='large'>It is a straight port of <a href="https://github.com/rails/arel">https://github.com/rails/arel</a>, with a couple of changes. For more details checkout <a href="https://github.com/cjwoodward/rel">the Github page</a>.</p>
         <h2>Simple Usage</h2>
-        <pre><code>
-users = new Rel.Table 'users'
+        <pre><code>users = new Rel.Table 'users'
 users.project Rel.star()
 users.toSql()
         </code></pre>
         <p>Produces</p>
-        <pre><code> SELECT * FROM users</pre></code>
+        <pre><code>SELECT * FROM users</pre></code>
         <h2>Fancy Usage</h2>
         <pre><code>users.where(users.column('name').eq('amy')).project(users.column('id'))</pre></code>
         <p>Generates</p>
