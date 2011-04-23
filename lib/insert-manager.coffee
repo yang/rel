@@ -34,4 +34,8 @@ class InsertManager extends TreeManager
         values.push value
       @ast.values = @createValues values, @ast.columns
 
+  into: (table) ->
+    @ast.relation = table
+    @
+
 exports = module.exports = InsertManager

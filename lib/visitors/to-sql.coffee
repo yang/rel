@@ -3,14 +3,13 @@ Visitor = require './visitor'
 Nodes = require '../nodes/nodes'
 SqlLiteral = require '../nodes/sql-literal'
 Attributes = require '../attributes'
+require 'date-utils'
 
 class ToSql extends Visitor
   constructor: ->
     @connection = null
     @pool = null
     @lastColumn = null
-    @quotedTables = {}
-    @quotedColumns = {}
 
   accept: (object) ->
     @last_column = null
@@ -58,11 +57,9 @@ class ToSql extends Visitor
   visitRelNodesValues: (o) ->
     "VALUES (#{(u(o.expressions()).map (expr) =>
       if expr == null
-        'NULL'
+        @quote expr, null
       else if expr.constructor == SqlLiteral
         @visitRelNodesSqlLiteral expr
-      else if expr.constructor == Boolean
-        if expr == true then "'t'" else "'f'"
       else
         @quote(expr, null)
     ).join ', '})"
@@ -112,16 +109,15 @@ class ToSql extends Visitor
       @quoteTableName o.name
 
   quoteTableName: (name) ->
-    @quotedTables[name] ||= if Nodes.SqlLiteral == name.constructor then name else "\"#{name}\""
+    if Nodes.SqlLiteral == name.constructor then name else "\"#{name}\""
 
   quoteColumnName: (name) ->
-    @quotedColumns[name] ||= 
-      if Nodes.SqlLiteral == name.constructor 
-        name
-      else if Attributes.Attribute == name.constructor
-        @quote name.name
-      else
-        "\"#{name}\""
+    if Nodes.SqlLiteral == name.constructor 
+      name
+    else if Attributes.Attribute == name.constructor
+      @quote name.name
+    else
+      "\"#{name}\""
 
   visitRelNodesArray: (o) ->
     if u(o).empty? then 'NULL' else (o.map (x) => @visit(x)).join(', ')
@@ -154,7 +150,16 @@ class ToSql extends Visitor
   visitRelNodesNumber: (o) -> @literal(o)
 
   quote: (value, column=null) ->
-    "\"#{value}\""
+    if value == null
+      'NULL'
+    else if value.constructor == Boolean
+      if value == true then "'t'" else "'f'"
+    else if value.constructor == Date
+      value.toDBString()
+    else if value.constructor == Number
+      value
+    else
+      "\"#{value}\""
 
 
   # TODO this is silly because we aren't checking against the connection.
