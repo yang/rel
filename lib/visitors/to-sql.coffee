@@ -47,6 +47,23 @@ class ToSql extends Visitor
       ("WHERE #{(wheres.map (x) => @visit x).join ' AND '}" unless u(u.wheres).isEmpty())
     ]).compact().join(' ')
 
+  buildSubselect: (key, o) ->
+    stmt = new Nodes.SelectStatement()
+    core = stmt.cores[0]
+    core.froms = o.relation
+    core.wheres = o.wheres
+    core.projections = [key]
+    stmt.limit = o.limit
+    stmt.orders = o.orders
+    stmt
+
+  visitRelNodesAssignment: (o) ->
+    right = @quote(o.right, @columnFor(o.left))
+    "#{@visit o.left} = #{right}"
+
+  visitRelNodesUnqualifiedColumn: (o) ->
+    @quoteColumnName o.name() # TODO This probably shouldn't be a function.
+
   visitRelNodesInsertStatement: (o) ->
     u([
       "INSERT INTO #{if o.relation? then @visit o.relation else 'NULL'}",
