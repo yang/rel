@@ -57,6 +57,15 @@ tests = vows.describe('Inserting stuff').addBatch
       manager.insert [[table.column('id'), 1], [table.column('name'), 'carl']]
       assert.equal manager.toSql(), 'INSERT INTO "users" ("id", "name") VALUES (1, "carl")'
 
+    'defaults the table': ->
+      table = new Table 'users'
+      manager = new InsertManager()
+      manager.insert [[table.column('id'), 1], [table.column('name'), 'carl']]
+      assert.equal manager.toSql(), 'INSERT INTO "users" ("id", "name") VALUES (1, "carl")'
+
+
+    
+
 
 
 
