@@ -38,9 +38,4 @@ tests = vows.describe('Deleting stuff').addBatch
         assert.equal dm.where(table.column('id').eq(10)).constructor, DeleteManager
 
 
-
-
-
-
-
 tests.export module
