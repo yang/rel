@@ -9,3 +9,5 @@
   literals are the same. One should actually take a string. Submit a
   pull request for that.
 - Talk about AREL having very circular coupling.
+- Line 83 of test_insert_manager doesn't actually test anything. It
+  should check for nil in the ast or something.

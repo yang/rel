@@ -63,6 +63,11 @@ tests = vows.describe('Inserting stuff').addBatch
       manager.insert [[table.column('id'), 1], [table.column('name'), 'carl']]
       assert.equal manager.toSql(), 'INSERT INTO "users" ("id", "name") VALUES (1, "carl")'
 
+    'it takes an empty list': ->
+      manager = new InsertManager()
+      manager.insert []
+      assert.isNull manager.ast.values
+
 
     
 
