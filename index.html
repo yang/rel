@@ -30,21 +30,13 @@ users.project Rel.star()
 users.toSql()
         </code></pre>
         <p>Produces</p>
-        <pre><code>
-SELECT * FROM users
-        </pre></code>
+        <pre><code> SELECT * FROM users</pre></code>
         <h2>Fancy Usage</h2>
-        <pre><code>
-users.where(users.column('name').eq('amy')).project(users.column('id'))
-        </pre></code>
+        <pre><code>users.where(users.column('name').eq('amy')).project(users.column('id'))</pre></code>
         <p>Generates</p>
-        <pre><code>
-SELECT users.id FROM users WHERE users.name = 'amy'
-        </pre></code>
+        <pre><code>SELECT users.id FROM users WHERE users.name = 'amy'</pre></code>
         <h2>Installation</h2>
-        <pre><code>
-npm install rel
-        </pre></code>
+        <pre><code>npm install rel</pre></code>
 
         <p class="footnote">For more examples and details look at <a href="https://github.com/cjwoodward/rel">the Github page</a>.</p>
 
