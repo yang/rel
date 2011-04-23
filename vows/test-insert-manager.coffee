@@ -83,6 +83,29 @@ tests = vows.describe('Inserting stuff').addBatch
         manager.columns().push table.column('id')
         assert.equal manager.toSql(), 'INSERT INTO "users" ("id")'
 
+    'values':
+      'converts to sql': ->
+        table = new Table 'users'
+        manager = new InsertManager()
+        manager.into table
+
+        manager.values(new Nodes.Values([1]))
+        assert.equal manager.toSql(), 'INSERT INTO "users" VALUES (1)'
+
+    'combo':
+      'puts shit together': ->
+        table = new Table 'users'
+        manager = new InsertManager()
+        manager.into table
+
+        manager.values(new Nodes.Values([1, 'carl']))
+        manager.columns().push table.column('id')
+        manager.columns().push table.column('name')
+
+        assert.equal manager.toSql(), 'INSERT INTO "users" ("id", "name") VALUES (1, "carl")'
+
+
+
 
     
 

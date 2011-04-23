@@ -15,7 +15,10 @@ class InsertManager extends TreeManager
     @ast.columns
 
   values: (values) ->
-    @ast.values = values
+    if values?
+      @ast.values = values
+    else
+      @ast.values
 
   insert: (fields) ->
     return if u(fields).isEmpty()
