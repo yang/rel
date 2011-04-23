@@ -2,6 +2,7 @@ body {
   background: url(images/bg-main.png);
   color: #202050;
   font-family: "museo-slab-1","museo-slab-2";
+  line-height: 1.5em;
 }
 
 header {
@@ -10,12 +11,22 @@ header {
 
 .container {
   margin: 0 auto;
-  width: 940px;
+  width: 750px;
 }
 
 .container.body {
-  padding: 40px 0 40px 137px;
+  padding: 0 0 36px 137px;
 }
 
+h1, h2, h3, h4 {
+  font-weight: normal;
+}
 
+code {
+  font-size: 17px;
+}
+
+.important, a {
+  color: #e93e3d;
+}
 
