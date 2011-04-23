@@ -1,0 +1,19 @@
+body {
+  background: url(/images/bg-main.png)
+  color: #202050;
+  font-family: "museo-slab-1","museo-slab-2";
+}
+
+header {
+  padding: 18px 0;
+}
+
+.container {
+  margin: 0 auto;
+  width: 940px;
+}
+
+.container.body {
+  padding: 40px 0 40px 137px;
+}
+

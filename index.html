@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang='en-US' xml:lang='en-US' xmlns='http://www.w3.org/1999/xhtml'>
+  <head>
+    <meta content='text/html; charset=utf-8' http-equiv='Content-Type'>
+    <title>
+      Rel - A Node JS Port of Arel
+    </title>
+    <link href="/screen.css" media="screen" rel="stylesheet" type="text/css" />
+    <meta content='Node JS port of Arel ruby library' name='description'>
+    <meta content='node, nodejs, orm, database' name='keywords'>
+    <script type="text/javascript" src="http://use.typekit.com/xal7hpl.js"></script>
+    <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+  </head>
+  <body>
+    <header>
+      <div class='container'>
+        <a href='/' id='home'>
+          <img alt='Logo' src='/images/logo.png'>
+        </a>
+      </div>
+    </header>
+    <div class='container body'>
+      <section class='intro'>
+        <h1>Rel is a SQL AST manager for Node JS</h1>
+        <p class='large'>It is a straight port of https://github.com/rails/arel. Although it does have some changes. For me details checkout <a href="https://github.com/cjwoodward/rel">the Github page</a>.</p>
+        <h2>Simple Usage</h2>
+        <pre><code>
+users = new Rel.Table 'users'
+users.project Rel.star()
+users.toSql()
+        </code></pre>
+        <p>Produces</p>
+        <pre><code>
+SELECT * FROM users
+        </pre></code>
+        <h2>Fancy Usage</h2>
+        <pre><code>
+users.where(users.column('name').eq('amy')).project(users.column('id'))
+        </pre></code>
+        <p>Generates</p>
+        <pre><code>
+SELECT users.id FROM users WHERE users.name = 'amy'
+        </pre></code>
+        <h2>Installation</h2>
+        <pre><code>
+npm install rel
+        </pre></code>
+
+        <p class="footnote">For more examples and details look at <a href="https://github.com/cjwoodward/rel">the Github page</a>.</p>
+
+      </section>
+    </div>
+  </body>
+</html>
+
