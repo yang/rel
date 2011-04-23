@@ -1,5 +1,6 @@
 Nodes = require './lib/nodes/nodes'
 Range = require './lib/range'
+Table = require './lib/table'
 
 Rel =
   VERSION: '0.0.1'
@@ -12,5 +13,8 @@ Rel =
 
   range: (start, finish) ->
     new Range(start, finish)
+
+  Table: Table
+
 
 exports = module.exports = Rel
