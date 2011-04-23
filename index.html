@@ -22,7 +22,7 @@
     <div class='container body'>
       <section class='intro'>
         <h1>Rel is a SQL AST manager for Node JS</h1>
-        <p class='large'>It is a straight port of <a href="https://github.com/rails/arel">https://github.com/rails/arel</a>, with a couple of changes. For more details checkout <a href="https://github.com/cjwoodward/rel">the Github page</a>.</p>
+        <p class='large'>It is a straight port of <a href="https://github.com/rails/arel">https://github.com/rails/arel</a>, with a couple of changes. For more details checkout <a href="https://github.com/cjwoodward/rel">the Github page</a>. It was built so Node JS could be used for some more serious projects that most people were/are still tackling with Ruby. All feedback is welcome and if you find any issues please raise them in the issues section on github. Patches will be excepted as long as they are tested.</p>
         <h2>Simple Usage</h2>
         <pre><code>users = new Rel.Table 'users'
 users.project Rel.star()
@@ -35,6 +35,11 @@ users.toSql()</code></pre>
         <pre><code>SELECT users.id FROM users WHERE users.name = 'amy'</pre></code>
         <h2>Installation</h2>
         <pre><code>npm install rel</pre></code>
+
+        <h2>Contributors and License</h2>
+
+        <p>Built by <a href="https://github.com/cjwoodward">Carl Woodward</a> &mdash; <a href="http://twitter.com/cjwoodward">@cjwoodward</a></p>
+        <p>The software is developed under the MIT License</p>
 
         <p class="footnote">For more examples and details look at <a href="https://github.com/cjwoodward/rel">the Github page</a>.</p>
 
