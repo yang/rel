@@ -1,6 +1,6 @@
 {
 	"name": "rel",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"description": "Rel is a SQL AST manager for Node JS",
 	"homepage": "http://cjwoodward.github.com/rel/",
 	"keywords": [],
@@ -38,5 +38,6 @@
   "main": "rel",
   "directories": {
     "lib": "lib"
-  }
+  },
+  "repository": "https://github.com/cjwoodward/rel"
 }
