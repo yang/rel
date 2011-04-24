@@ -16,6 +16,8 @@ It still holds the same goals as Arel which are:
 1. Simplifies the generation complex of SQL queries.
 2. Adapts to various RDBMS systems
 
+_Before you ask, there will also be a port of ActiveRecord coming in the next little bit._
+
 ## Installation
 
     npm install rel
@@ -23,8 +25,7 @@ It still holds the same goals as Arel which are:
 ## Introduction
 
     users = new Rel.Table 'users'
-    users.project Rel.star()
-    users.toSql()
+    users.project(Rel.star()).toSql()
 
 Will produce
 
@@ -42,7 +43,7 @@ database, this is called a projection in Rel.
 
 Joins resemble SQL:
 
-    users.join(photos).on(users.column('id').eq(photos.column('user_id'))
+    users.join(photos).on(users.column('id').eq(photos.column('user_id')))
     # => SELECT * FROM users INNER JOIN photos ON users.id = photos.user_id
 
 Limit and offset and called __take__ and __skip__:

@@ -1,5 +1,5 @@
 u = require 'underscore'
-Nodes = require './nodes/nodes'
+Nodes = null
 TreeManager = require './tree-manager'
 Rel = require '../rel'
 Visitors = require './visitors'
@@ -7,6 +7,7 @@ Visitors = require './visitors'
 class SelectManager extends TreeManager
   constructor: (table) ->
     super()
+    Nodes = require './nodes/nodes'
     @ast = new Nodes.SelectStatement()
     @ctx = u(@ast.cores).last()
     @from table

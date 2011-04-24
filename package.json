@@ -1,0 +1,42 @@
+{
+	"name": "rel",
+	"version": "0.0.1",
+	"description": "Rel is a SQL AST manager for Node JS",
+	"homepage": "http://cjwoodward.github.com/rel/",
+	"keywords": [],
+	"author": {
+		"name": "Carl Woodward",
+		"email": "carl@carlwoodward.com",
+		"web": "http://carlwoodward.com"
+	},
+	"maintainers": [
+		{
+			"name": "Carl Woodward",
+  		"email": "carl@carlwoodward.com",
+  		"web": "http://carlwoodward.com"
+		}
+	],
+	"contributors": [
+		{
+			"name": "Carl Woodward",
+  		"email": "carl@carlwoodward.com",
+  		"web": "http://carlwoodward.com"
+		}
+	],
+	"bugs": {
+		"web": "https://github.com/cjwoodward/rel/issues"
+	},
+	"licenses": [],
+	"repository" : {},
+	"dependencies": {
+	   "underscore": "1.1.6",
+	   "coffee-script": "1.0.1"
+	},
+	"engines" : {
+		"node": ">=0.4.5"
+	},
+  "main": "rel",
+  "directories": {
+    "lib": "lib"
+  }
+}

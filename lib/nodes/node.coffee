@@ -1,15 +1,21 @@
-Nodes = require './nodes'
 Visitors = require '../visitors'
 
 class Node
+  nodes: ->
+    require './nodes'
+
   not: ->
-    new Nodes.Not(@)
+    Not = @nodes.Not
+    new Not(@)
     
   or: (right) ->
-    new Nodes.Grouping(new Nodes.Or(@, right))
+    Grouping = @nodes().Grouping
+    Or = @nodes().Or
+    new Grouping(new Or(@, right))
     
   and: (right) ->
-    new Nodes.And([@, right])
+    And = @nodes().And
+    new And([@, right])
     
   # TODO Implement each and toSql
   toSql: ->

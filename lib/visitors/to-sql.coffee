@@ -191,6 +191,9 @@ class ToSql extends Visitor
       @visit x
     ).join ' AND '
 
+  visitRelNodesOr: (o) ->
+    "#{@visit o.left} OR #{@visit o.right}"
+
   visitRelNodesInnerJoin: (o) ->
     "INNER JOIN #{@visit o.left} #{@visit o.right if o.right? and u(o.right).any()}"
 
@@ -261,6 +264,9 @@ class ToSql extends Visitor
 
   visitRelNodesLimit: (o) ->
     "LIMIT #{@visit o.expr}"
+
+  visitRelNodesGrouping: (o) ->
+    "(#{@visit o.expr})"
 
 
 
