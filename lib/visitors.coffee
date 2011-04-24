@@ -1,11 +1,12 @@
 Dot = require './visitors/dot'
-Postgresql = require './visitors/postgresql'
+Default = require './visitors/default'
 ToSql = require './visitors/to-sql'
 
 Visitors = 
   Dot: Dot
   visitor: ->
-    new Postgresql()
+    # TODO figure out a factory way of returning the 
+    new Default()
   JoinSql:
     visitRelNodesSelectCore: (o) ->
       (o.source.right.map (j) => @visit(j)).join ' '
