@@ -25,8 +25,7 @@
         <p class='large'>It is a direct port of <a href="https://github.com/rails/arel">https://github.com/rails/arel</a>, with a couple of changes. It was built so Node JS could be used for some more serious projects that most people were/are still tackling with Ruby. All feedback is welcome and if you find any issues please raise them in the issues section on github. Patches will be accepted as long as they are tested. For more details checkout <a href="https://github.com/cjwoodward/rel">the Github page</a>.</p>
         <h2>Simple Usage</h2>
         <pre><code>users = new Rel.Table 'users'
-users.project Rel.star()
-users.toSql()</code></pre>
+users.project(Rel.star()).toSql()</code></pre>
         <p>The above produces</p>
         <pre><code>SELECT * FROM users</pre></code>
         <h2>Fancy Usage</h2>
