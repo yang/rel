@@ -21,6 +21,11 @@
 			"name": "Carl Woodward",
   		"email": "carl@carlwoodward.com",
   		"web": "http://carlwoodward.com"
+		},
+		{
+		  "name": "Zachery Hostens",
+		  "email": "zacheryph@gmail.com",
+		  "web": "http://zacheryph.github.com"
 		}
 	],
 	"bugs": {
@@ -30,7 +35,8 @@
 	"repository" : {},
 	"dependencies": {
 	   "underscore": "1.1.6",
-	   "coffee-script": "1.0.1"
+	   "coffee-script": "1.0.1",
+	   "date-utils": "0.1.8"
 	},
 	"engines" : {
 		"node": ">=0.4.5"
