@@ -73,3 +73,4 @@ The OR operator works like this:
     users.where(users.column('name').eq('bob').or(users.column('age').lt(25)))
 
 This is the same as the AS operator.
+
