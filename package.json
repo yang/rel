@@ -36,7 +36,6 @@
   "dependencies": {
     "coffee-script": "1.0.1",
     "date-utils": "0.1.8",
-    "pg": "^3.0.3",
     "underscore": "1.1.6"
   },
   "engines": {
