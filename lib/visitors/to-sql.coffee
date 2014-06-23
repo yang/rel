@@ -132,7 +132,7 @@ class ToSql extends Visitor
     if Nodes.SqlLiteral == name.constructor 
       name
     else if Attributes.Attribute == name.constructor
-      @quote name.name
+      "\"#{name.name}\""
     else
       "\"#{name}\""
 
