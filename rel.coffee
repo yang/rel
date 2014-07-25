@@ -14,6 +14,9 @@ Rel =
   range: (start, finish) ->
     new Range(start, finish)
 
+  func: (name) -> (args...) =>
+    new Nodes.FunctionNode(args, @sql(name))
+
   Table: Table
 
 

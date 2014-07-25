@@ -5,7 +5,7 @@ Expressions =
     new Nodes.Count [@], distinct
     
   sum: ->
-    new Nodes.Sum [@], new(Nodes.SqlLiteral('sum_id'))
+    new Nodes.Sum [@], new Nodes.SqlLiteral('sum_id')
     
   maximum: ->
     new Nodes.Max [@], new(Nodes.SqlLiteral('max_id'))

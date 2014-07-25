@@ -268,7 +268,8 @@ class ToSql extends Visitor
   visitRelNodesGrouping: (o) ->
     "(#{@visit o.expr})"
 
-
+  visitRelNodesFunctionNode: (o) ->
+    "#{@visit o.alias}(#{(@visit(x) for x in o.expressions)})"
 
 
 
