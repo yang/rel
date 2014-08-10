@@ -22,7 +22,7 @@ class Table
     new SelectManager(table)
 
   project: (things...) ->
-    @from(@).project things
+    @from(@).project things...
 
   attribute: (name) ->
     new Attributes.Attribute(@, name)
@@ -57,10 +57,10 @@ class Table
     @from(@).having expr
 
   group: (columns...) ->
-    @from(@).group columns
+    @from(@).group columns...
 
   order: (expr...) ->
-    @from(@).order expr
+    @from(@).order expr...
 
   take: (amount) ->
     @from(@).take amount

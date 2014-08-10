@@ -77,7 +77,7 @@ tests = vows.describe('Table stuff').addBatch
 
     'order: should take an order': (table) ->
       mgr = table.order 'foo'
-      assert.equal mgr.toSql(), 'SELECT FROM "users" ORDER BY "foo"'
+      assert.equal mgr.toSql(), 'SELECT FROM "users" ORDER BY foo'
 
     'take: should add a limit': (table) ->
       mgr = table.take 1
