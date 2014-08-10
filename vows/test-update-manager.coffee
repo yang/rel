@@ -42,7 +42,7 @@ tests = vows.describe('Updating stuff').addBatch
         um = new UpdateManager()
         um.table table
         um.set [[table.column('id'), 1], [table.column('name'), 'hello']]
-        assert.equal um.toSql(), 'UPDATE "users" SET "id" = 1, "name" = "hello"'
+        assert.equal um.toSql(), 'UPDATE "users" SET "id" = 1, "name" = \'hello\''
 
       'chains': ->
         table = new Table 'users'

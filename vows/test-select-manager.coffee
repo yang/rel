@@ -354,7 +354,7 @@ tests = vows.describe('Querying stuff').addBatch
         table = new Table 'users'
         manager = new SelectManager()
         manager.from new Nodes.StringJoin('hello')
-        assert.equal manager.joinSql().toString(), '"hello"' # TODO not sure if this should get quoted. It isn't in ruby tests.
+        assert.equal manager.joinSql().toString(), "'hello'" # TODO not sure if this should get quoted. It isn't in ruby tests.
 
       'returns nil join sql': ->
         manager = new SelectManager()

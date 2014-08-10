@@ -8,7 +8,7 @@ Rel = require '../rel'
 tests = vows.describe('Integrating rel').addBatch
   'it should perform a users find': ->
     users = new Rel.Table 'users'
-    assert.equal users.where(users.column('name').eq('amy')).toSql(), 'SELECT FROM "users" WHERE "users"."name" = "amy"'
+    assert.equal users.where(users.column('name').eq('amy')).toSql(), 'SELECT FROM "users" WHERE "users"."name" = \'amy\''
 
   'it should run through the first example on the readme': ->
     users = new Rel.Table 'users'

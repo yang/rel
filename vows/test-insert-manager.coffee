@@ -55,13 +55,13 @@ tests = vows.describe('Inserting stuff').addBatch
       manager = new InsertManager()
       manager.into table
       manager.insert [[table.column('id'), 1], [table.column('name'), 'carl']]
-      assert.equal manager.toSql(), 'INSERT INTO "users" ("id", "name") VALUES (1, "carl")'
+      assert.equal manager.toSql(), 'INSERT INTO "users" ("id", "name") VALUES (1, \'carl\')'
 
     'defaults the table': ->
       table = new Table 'users'
       manager = new InsertManager()
       manager.insert [[table.column('id'), 1], [table.column('name'), 'carl']]
-      assert.equal manager.toSql(), 'INSERT INTO "users" ("id", "name") VALUES (1, "carl")'
+      assert.equal manager.toSql(), 'INSERT INTO "users" ("id", "name") VALUES (1, \'carl\')'
 
     'it takes an empty list': ->
       manager = new InsertManager()
@@ -102,7 +102,7 @@ tests = vows.describe('Inserting stuff').addBatch
         manager.columns().push table.column('id')
         manager.columns().push table.column('name')
 
-        assert.equal manager.toSql(), 'INSERT INTO "users" ("id", "name") VALUES (1, "carl")'
+        assert.equal manager.toSql(), 'INSERT INTO "users" ("id", "name") VALUES (1, \'carl\')'
 
 
 
