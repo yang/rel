@@ -172,7 +172,7 @@ class ToSql extends Visitor
     else if value.constructor == Boolean
       if value == true then "'t'" else "'f'"
     else if value.constructor == Date
-      value.toDBString()
+      @quote(value.toDBString())
     else if value.constructor == Number
       value
     else

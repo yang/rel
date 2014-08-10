@@ -35,7 +35,7 @@ class Postgresql extends ToSql
     else if value.constructor == Boolean
       if value == true then "true" else "false"
     else if value.constructor == Date
-      value.toISOString()
+      @quote(value.toISOString())
     else if value.constructor == Number
       value
     else

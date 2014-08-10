@@ -32,7 +32,7 @@ tests = vows.describe('Inserting stuff').addBatch
       table = new Table 'users'
       manager = new InsertManager()
       manager.insert [[table.column('bool'), false]]
-      assert.equal manager.toSql(), 'INSERT INTO "users" ("bool") VALUES (\'f\')'
+      assert.equal manager.toSql(), 'INSERT INTO "users" ("bool") VALUES (false)'
 
     'inserts null': ->
       table = new Table 'users'
@@ -48,7 +48,7 @@ tests = vows.describe('Inserting stuff').addBatch
       attribute = table.column('created_at')
 
       manager.insert [[attribute, time]]
-      assert.equal manager.toSql(), "INSERT INTO \"users\" (\"created_at\") VALUES (#{time.toDBString()})"
+      assert.equal manager.toSql(), "INSERT INTO \"users\" (\"created_at\") VALUES ('#{time.toISOString()}')"
 
     'takes a list of lists': ->
       table = new Table 'users'
