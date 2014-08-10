@@ -42,7 +42,7 @@
   "licenses": [],
   "repository": "https://github.com/cjwoodward/rel",
   "dependencies": {
-    "coffee-script": "1.0.1",
+    "coffee-script": "^1.7.1",
     "date-utils": "0.1.8",
     "underscore": "1.1.6"
   },
@@ -54,6 +54,6 @@
     "lib": "lib"
   },
   "devDependencies": {
-    "vows": "^0.7.0"
+    "vows": "git+https://github.com/snoble/vows.git#1e8fa11fdb2f67eac285cbcbcf6485eec131fa02"
   }
 }

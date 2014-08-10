@@ -78,3 +78,8 @@ The OR operator works like this:
 
 This is the same as the AS operator.
 
+Setup notes
+===========
+
+- Using special commit of vows to work around
+  <https://github.com/flatiron/vows/issues/296>.
