@@ -1,7 +1,6 @@
 u = require 'underscore'
 Nodes = null
 TreeManager = require './tree-manager'
-Rel = require '../rel'
 Visitors = require './visitors'
 
 class SelectManager extends TreeManager
@@ -68,7 +67,7 @@ class SelectManager extends TreeManager
     exprs = exprs.unshift(existing.expr) if existing?
     exprs = u(exprs).compact().map (expr) =>
       if expr.constructor == String
-        Rel.sql expr
+        new Nodes.SqlLiteral expr
       else
         expr
 
@@ -156,7 +155,7 @@ class SelectManager extends TreeManager
   taken: ->
     @limit()
 
-  lock: (locking=Rel.sql('FOR UPDATE')) ->
+  lock: (locking=new Nodes.SqlLiteral('FOR UPDATE')) ->
     @ast.lock = new Nodes.Lock locking
     @
 

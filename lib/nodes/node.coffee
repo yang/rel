@@ -1,8 +1,9 @@
-Visitors = require '../visitors'
-
 class Node
   nodes: ->
     require './nodes'
+
+  visitors: ->
+    require '../visitors'
 
   not: ->
     Not = @nodes.Not
@@ -19,6 +20,6 @@ class Node
     
   # TODO Implement each and toSql
   toSql: ->
-    Visitors.visitor().accept @
+    @visitors().visitor().accept @
   
 exports = module.exports = Node

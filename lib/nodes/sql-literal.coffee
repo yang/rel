@@ -1,9 +1,9 @@
 u = require 'underscore'
-Expressions = require('../expressions')
-Predications = require('../predications')
 
 class SqlLiteral
   constructor: (@value) ->
+    Expressions = require('../expressions')
+    Predications = require('../predications')
     u(@).extend(Expressions)
     u(@).extend(SqlLiteral)
 
