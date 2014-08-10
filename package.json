@@ -44,5 +44,8 @@
   "main": "rel",
   "directories": {
     "lib": "lib"
+  },
+  "devDependencies": {
+    "vows": "^0.7.0"
   }
 }
