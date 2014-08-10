@@ -1,8 +1,8 @@
 {
   "name": "rel",
-  "version": "0.0.3",
+  "version": "0.1.0",
   "description": "Rel is a SQL AST manager for Node JS",
-  "homepage": "http://cjwoodward.github.com/rel/",
+  "homepage": "http://yang.github.com/rel/",
   "keywords": [],
   "author": {
     "name": "Carl Woodward",
@@ -14,6 +14,10 @@
       "name": "Carl Woodward",
       "email": "carl@carlwoodward.com",
       "web": "http://carlwoodward.com"
+    },
+    {
+      "name": "Yang Zhang",
+      "web": "http://yz.mit.edu"
     }
   ],
   "contributors": [
@@ -26,6 +30,10 @@
       "name": "Zachery Hostens",
       "email": "zacheryph@gmail.com",
       "web": "http://zacheryph.github.com"
+    },
+    {
+      "name": "Yang Zhang",
+      "web": "http://yz.mit.edu"
     }
   ],
   "bugs": {
