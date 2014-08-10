@@ -10,11 +10,14 @@ Nodes = require '../lib/nodes/nodes'
 tests = vows.describe('Querying stuff').addBatch
   'A select manager':
     'projects':
-      topic: ->
-        new SelectManager(new Table('users'))
-      'accepts sql literals and strings': (selectManager) ->
-        selectManager.project 'id'
+      'accepts sql literals': (selectManager) ->
+        selectManager = new SelectManager(new Table('users'))
+        selectManager.project Rel.sql('id')
         assert.equal selectManager.toSql(), "SELECT id FROM \"users\""
+      'accepts string constants': (selectManager) ->
+        selectManager = new SelectManager(new Table('users'))
+        selectManager.project 'foo'
+        assert.equal selectManager.toSql(), "SELECT 'foo' FROM \"users\""
 
     'order':
       topic: ->
@@ -420,7 +423,7 @@ tests = vows.describe('Querying stuff').addBatch
 
       'takes strings': ->
         manager = new SelectManager()
-        manager.project('*')
+        manager.project(Rel.sql('*'))
         assert.equal manager.toSql(), 'SELECT *'
 
       'takes sql literals': ->

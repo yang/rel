@@ -12,9 +12,7 @@ class SelectManager extends TreeManager
     @from table
     
   project: (projections...) ->
-    @ctx.projections = @ctx.projections.concat projections.map (x) ->
-      if x.constructor == String then new Nodes.SqlLiteral(x.toString()) else x
-
+    @ctx.projections = @ctx.projections.concat projections
     @
 
   order: (expr...) ->
