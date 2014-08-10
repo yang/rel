@@ -9,7 +9,7 @@ Rel = require('../rel')
 Nodes = require '../lib/nodes/nodes'
 
 tests = vows.describe('Updating stuff').addBatch
-  'An insert manager':
+  'An update manager':
     'new': ->
       assert.isNotNull new UpdateManager()
 
