@@ -209,7 +209,7 @@ tests = vows.describe('Querying stuff').addBatch
         manager = new SelectManager()
         manager.with('recursive', asStatement).from(replies).project(Rel.star())
 
-        string = 'WITH RECURSIVE "replies" AS ( SELECT "comments"."id", "comments"."parent_id" FROM "comments" WHERE "comments"."id" = 42 UNION SELECT "comments"."id", "comments"."parent_id" FROM "comments" INNER JOIN "replies" ON "comments"."parent_id" = "replies"."id" ) SELECT * FROM "replies"'
+        string = 'WITH RECURSIVE "replies" AS (( SELECT "comments"."id", "comments"."parent_id" FROM "comments" WHERE "comments"."id" = 42 UNION SELECT "comments"."id", "comments"."parent_id" FROM "comments" INNER JOIN "replies" ON "comments"."parent_id" = "replies"."id" )) SELECT * FROM "replies"'
         assert.equal manager.toSql(), string
 
     'ast':

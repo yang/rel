@@ -234,11 +234,14 @@ class ToSql extends Visitor
   visitRelNodesIntersect: (o) ->
     "( #{@visit o.left} INTERSECT #{@visit o.right} )"
 
-  visitRelNodesWith: (o) ->
-    "WITH #{(o.children.map (x) => @visit x).join(', ')}"
+  _withHelper: (rec, o) ->
+    "WITH#{rec} #{
+      ("#{@visit x.left} AS (#{@visit x.right})" for x in o.children).join(', ')
+    }"
 
-  visitRelNodesWithRecursive: (o) ->
-    "WITH RECURSIVE #{(o.children.map (x) => @visit x).join(', ')}"
+  visitRelNodesWith: (o) -> @_withHelper('', o)
+
+  visitRelNodesWithRecursive: (o) -> @_withHelper(' RECURSIVE', o)
 
   visitRelNodesAs: (o) ->
     "#{@visit o.left} AS #{@visit o.right}"
