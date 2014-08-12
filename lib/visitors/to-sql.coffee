@@ -155,6 +155,11 @@ class ToSql extends Visitor
     joinName = o.relation.tableAlias || o.relation.name
     "#{@quoteTableName(joinName)}.#{@quoteColumnName(o.name)}"
 
+  visitRelNodesTableStar: (o) ->
+    rel = o.expr
+    joinName = rel.tableAlias || rel.name
+    "#{@quoteTableName(joinName)}.*"
+
   visitRelNodesAttrInteger: (o) -> @visitRelNodesAttribute(o)
   visitRelNodesAttrFloat: (o) -> @visitRelNodesAttribute(o)
   visitRelNodesAttrString: (o) -> @visitRelNodesAttribute(o)

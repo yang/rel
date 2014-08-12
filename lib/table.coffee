@@ -68,6 +68,6 @@ class Table
   where: (condition) ->
     @from(@).where condition
 
-
+  star: -> new Nodes.TableStar(@)
 
 module.exports = Table

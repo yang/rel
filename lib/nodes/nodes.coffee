@@ -77,6 +77,7 @@ Nodes =
     constructor: (@expr) ->
       @children = @expr
   WithRecursive: class WithRecursive extends With
+  TableStar: class TableStar extends Unary
   Values: class Values extends Binary
     constructor: (exprs, columns=[]) ->
       super exprs, columns

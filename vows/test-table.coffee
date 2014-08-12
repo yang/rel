@@ -104,7 +104,9 @@ tests = vows.describe('Table stuff').addBatch
       column = table.column 'id'
       assert.equal column.name, 'id'
 
-
+    'star': (table) ->
+      assert.equal table.project(table.star()).toSql(),
+        'SELECT "users".* FROM "users"'
 
 
 tests.export module
