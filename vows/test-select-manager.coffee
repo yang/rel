@@ -261,6 +261,15 @@ tests = vows.describe('Querying stuff').addBatch
         manager = new SelectManager()
         assert.equal manager.order(table.column('id')), manager
 
+      'supports asc/desc': ->
+        table = new Table 'users'
+        manager = new SelectManager()
+        manager.project Rel.star()
+        manager.from table
+        manager.order table.column('id').asc(), table.column('name').desc()
+        assert.equal manager.toSql(),
+          'SELECT * FROM "users" ORDER BY "users"."id" ASC, "users"."name" DESC'
+
     'on':
       'takes two params': ->
         left = new Table 'users'

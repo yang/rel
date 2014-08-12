@@ -144,6 +144,9 @@ class ToSql extends Visitor
 
   visitRelNodesSqlLiteral: (o) -> @literal(o)
 
+  visitRelNodesOrdering: (o) ->
+    "#{@visit o.left} #{o.right.toUpperCase()}"
+
   visitRelNodesGroup: (o) ->
     @visit o.expr
 
