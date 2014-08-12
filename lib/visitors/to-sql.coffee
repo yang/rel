@@ -163,7 +163,7 @@ class ToSql extends Visitor
 
   visitRelNodesString: (o) -> @quoted(o)
   visitRelNodesDate: (o) -> @quoted(o)
-
+  visitRelNodesBoolean: (o) -> @quoted(o)
   visitRelNodesNumber: (o) -> @literal(o)
 
   quote: (value, column=null) ->

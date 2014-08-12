@@ -478,6 +478,15 @@ tests = vows.describe('Querying stuff').addBatch
         assert.equal manager.from(table).project(table.column('id')).constructor, SelectManager
         assert.equal manager.toSql(), 'SELECT "users"."id" FROM "users"'
 
+    'bools':
+      'work': ->
+        table = new Table 'users'
+        manager = new SelectManager()
+        manager.from table
+        manager.project table.column('id')
+        manager.where table.column('underage').eq(true)
+        assert.equal manager.toSql(),
+          'SELECT "users"."id" FROM "users" WHERE "users"."underage" = true'
 
 tests.export module
 
