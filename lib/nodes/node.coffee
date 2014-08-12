@@ -6,7 +6,7 @@ class Node
     require '../visitors'
 
   not: ->
-    Not = @nodes.Not
+    Not = @nodes().Not
     new Not(@)
     
   or: (right) ->

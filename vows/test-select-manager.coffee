@@ -488,5 +488,15 @@ tests = vows.describe('Querying stuff').addBatch
         assert.equal manager.toSql(),
           'SELECT "users"."id" FROM "users" WHERE "users"."underage" = true'
 
+    'not':
+      'works': ->
+        table = new Table 'users'
+        manager = new SelectManager()
+        manager.from table
+        manager.project table.column('id')
+        manager.where table.column('age').gt(18).not()
+        assert.equal manager.toSql(),
+          'SELECT "users"."id" FROM "users" WHERE NOT ("users"."age" > 18)'
+
 tests.export module
 

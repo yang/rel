@@ -219,6 +219,9 @@ class ToSql extends Visitor
   visitRelNodesGreaterThan: (o) ->
     "#{@visit o.left} > #{@visit o.right}"
 
+  visitRelNodesNot: (o) ->
+    "NOT (#{@visit o.expr})"
+
   visitRelNodesUnionAll: (o) ->
     "( #{@visit o.left} UNION ALL #{@visit o.right} )"
 
