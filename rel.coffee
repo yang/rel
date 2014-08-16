@@ -1,6 +1,9 @@
 Nodes = require './lib/nodes/nodes'
 Range = require './lib/range'
 Table = require './lib/table'
+SelectManager = require './lib/select-manager'
+InsertManager = require './lib/select-manager'
+UpdateManager = require './lib/select-manager'
 
 Rel =
   VERSION: '0.0.1'
@@ -19,5 +22,9 @@ Rel =
 
   Table: Table
 
+  table: (args...) -> new Table(args...)
+  select: -> new SelectManager()
+  insert: -> new InsertManager()
+  update: -> new UpdateManager()
 
 exports = module.exports = Rel
