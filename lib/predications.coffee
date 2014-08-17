@@ -8,7 +8,7 @@ Predications =
 
   as: (other) ->
     n = @nodes()
-    lit = new n.SqlLiteral(other)
+    lit = new n.UnqualifiedColumn(other)
     new n.As @, lit
     
   notEq: (other) ->

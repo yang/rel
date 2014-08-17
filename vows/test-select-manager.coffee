@@ -43,11 +43,13 @@ tests = vows.describe('Querying stuff').addBatch
         as = selectManager.as Rel.sql('foo')
         assert.equal 'Grouping', as.left.constructor.name
         assert.equal selectManager.ast, as.left.expr
-        assert.equal 'foo', as.right.toString()
+        assert.equal 'foo', as.right.value.toString()
       'it converts right to UnqualifiedColumn if string': ->
         manager = new SelectManager(new Table('users'))
         as = manager.as 'foo'
-        assert.equal as.right.constructor.name, 'SqlLiteral'
+        assert.equal as.right.constructor.name, 'UnqualifiedColumn'
+
+    'As':
       'supports UnqualifiedColumn': ->
         select = Rel.select()
           .project(new Nodes.As(1, new Nodes.UnqualifiedColumn('x')))
@@ -124,7 +126,7 @@ tests = vows.describe('Querying stuff').addBatch
         mgr.project(new SqlLiteral('*'))
         m2 = new SelectManager()
         m2.project mgr.exists().as('foo')
-        assert.equal m2.toSql(), "SELECT EXISTS (#{mgr.toSql()}) AS foo"
+        assert.equal m2.toSql(), "SELECT EXISTS (#{mgr.toSql()}) AS \"foo\""
 
     'union':
       topic: ->
