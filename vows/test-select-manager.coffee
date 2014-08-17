@@ -43,13 +43,21 @@ tests = vows.describe('Querying stuff').addBatch
         as = selectManager.as Rel.sql('foo')
         assert.equal 'Grouping', as.left.constructor.name
         assert.equal selectManager.ast, as.left.expr
-        assert.equal 'foo', as.right.value.toString()
-      'it converts right to UnqualifiedName if string': ->
+        assert.equal 'foo', as.right.toString()
+      'it converts right to SqlLiteral if string': ->
         manager = new SelectManager(new Table('users'))
         as = manager.as 'foo'
-        assert.equal as.right.constructor.name, 'UnqualifiedName'
+        assert.equal as.right.constructor.name, 'SqlLiteral'
+      'it renders to correct AS SQL': ->
+        sub = Rel.select().project(1)
+        outer = Rel.select().from(sub.as('x')).project(Rel.star())
+        assert.equal outer.toSql(), 'SELECT * FROM (SELECT 1) "x"'
 
     'As':
+      'supports SqlLiteral': ->
+        select = Rel.select()
+          .project(new Nodes.As(1, new Nodes.SqlLiteral('x')))
+        assert.equal select.toSql(), 'SELECT 1 AS x'
       'supports UnqualifiedName': ->
         select = Rel.select()
           .project(new Nodes.As(1, new Nodes.UnqualifiedName('x')))

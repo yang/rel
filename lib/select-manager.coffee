@@ -55,7 +55,7 @@ class SelectManager extends TreeManager
     @
 
   as: (other) ->
-    @createTableAlias @grouping(@ast), new Nodes.UnqualifiedName(other)
+    @createTableAlias @grouping(@ast), new Nodes.SqlLiteral(other)
 
   having: (exprs...) ->
     @ctx.having = new Nodes.Having(@collapse(exprs, @ctx.having))

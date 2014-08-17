@@ -209,7 +209,7 @@ class ToSql extends Visitor
     "ON #{@visit o.expr}"
 
   visitRelNodesTableAlias: (o) ->
-    "#{@visit o.relation} #{@quoteTableName o.name}"
+    "#{@visit o.relation} #{@quoteTableName o.name.toString()}"
 
   visitRelNodesOffset: (o) ->
     "OFFSET #{@visit o.expr}"
