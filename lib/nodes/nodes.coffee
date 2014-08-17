@@ -93,7 +93,7 @@ Nodes =
         @right = c
       else
         @right
-  UnqualifiedColumn: class UnqualifiedColumn extends Unary
+  UnqualifiedName: class UnqualifiedName extends Unary
     attribute: (attr) ->
       if attr?
         @expr = attr

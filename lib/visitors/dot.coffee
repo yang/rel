@@ -58,7 +58,7 @@ class Dot extends Visitor
   visitRelNodesOffset: (o) -> @unary(o)
   visitRelNodesOn: (o) -> @unary(o)
   visitRelNodesTop: (o) -> @unary(o)
-  visitRelNodesUnqualifiedColumn: (o) -> @unary(o)
+  visitRelNodesUnqualifiedName: (o) -> @unary(o)
 
   func: (o) ->
     @visitEdge o, 'expressions'

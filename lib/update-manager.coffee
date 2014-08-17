@@ -40,7 +40,7 @@ class UpdateManager extends TreeManager
       @ast.values = values.map (val) =>
         column = val[0]
         value = val[1]
-        new Nodes.Assignment(new Nodes.UnqualifiedColumn(column), value)
+        new Nodes.Assignment(new Nodes.UnqualifiedName(column), value)
     @
 
 exports = module.exports = UpdateManager

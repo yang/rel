@@ -61,7 +61,7 @@ class ToSql extends Visitor
     right = @quote(o.right, @columnFor(o.left))
     "#{@visit o.left} = #{right}"
 
-  visitRelNodesUnqualifiedColumn: (o) ->
+  visitRelNodesUnqualifiedName: (o) ->
     @quoteColumnName o.name() # TODO This probably shouldn't be a function.
 
   visitRelNodesInsertStatement: (o) ->

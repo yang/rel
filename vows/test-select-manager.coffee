@@ -44,15 +44,15 @@ tests = vows.describe('Querying stuff').addBatch
         assert.equal 'Grouping', as.left.constructor.name
         assert.equal selectManager.ast, as.left.expr
         assert.equal 'foo', as.right.value.toString()
-      'it converts right to UnqualifiedColumn if string': ->
+      'it converts right to UnqualifiedName if string': ->
         manager = new SelectManager(new Table('users'))
         as = manager.as 'foo'
-        assert.equal as.right.constructor.name, 'UnqualifiedColumn'
+        assert.equal as.right.constructor.name, 'UnqualifiedName'
 
     'As':
-      'supports UnqualifiedColumn': ->
+      'supports UnqualifiedName': ->
         select = Rel.select()
-          .project(new Nodes.As(1, new Nodes.UnqualifiedColumn('x')))
+          .project(new Nodes.As(1, new Nodes.UnqualifiedName('x')))
         assert.equal select.toSql(), 'SELECT 1 AS "x"'
 
     'from':
