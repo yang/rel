@@ -107,7 +107,7 @@ Nodes =
       @expr.column
 
     name: ->
-      @expr.name
+      @expr
 
   
 exports = module.exports = Nodes

@@ -44,10 +44,14 @@ tests = vows.describe('Querying stuff').addBatch
         assert.equal 'Grouping', as.left.constructor.name
         assert.equal selectManager.ast, as.left.expr
         assert.equal 'foo', as.right.toString()
-      'it converts right to SqlLiteral if string': ->
+      'it converts right to UnqualifiedColumn if string': ->
         manager = new SelectManager(new Table('users'))
-        as = manager.as Rel.sql('foo')
+        as = manager.as 'foo'
         assert.equal as.right.constructor.name, 'SqlLiteral'
+      'supports UnqualifiedColumn': ->
+        select = Rel.select()
+          .project(new Nodes.As(1, new Nodes.UnqualifiedColumn('x')))
+        assert.equal select.toSql(), 'SELECT 1 AS "x"'
 
     'from':
       'ignores string when table of same name exists': ->
