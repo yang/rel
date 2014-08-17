@@ -152,7 +152,7 @@ class ToSql extends Visitor
 
   visitRelNodesAttribute: (o) ->
     @lastColumn = @columnFor o
-    joinName = o.relation.tableAlias || o.relation.name
+    joinName = (o.relation.tableAlias || o.relation.name).toString()
     "#{@quoteTableName(joinName)}.#{@quoteColumnName(o.name)}"
 
   visitRelNodesTableStar: (o) ->

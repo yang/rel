@@ -521,5 +521,16 @@ tests = vows.describe('Querying stuff').addBatch
         assert.equal manager.toSql(),
           'SELECT "users"."id" FROM "users" WHERE NOT ("users"."age" > 18)'
 
+    'subqueries':
+      'work': ->
+        a = Rel.select().project(new Nodes.As(1, new Nodes.UnqualifiedName('x'))).as('a')
+        b = Rel.select().project(new Nodes.As(1, new Nodes.UnqualifiedName('x'))).as('b')
+        q = Rel.select()
+          .from(a).join(b, Nodes.OuterJoin)
+          .on(a.column('x').eq(b.column('x')))
+          .project(Rel.star())
+        assert.equal q.toSql(),
+          'SELECT * FROM (SELECT 1 AS "x") "a" LEFT OUTER JOIN (SELECT 1 AS "x") "b" ON "a"."x" = "b"."x"'
+
 tests.export module
 
