@@ -532,5 +532,16 @@ tests = vows.describe('Querying stuff').addBatch
         assert.equal q.toSql(),
           'SELECT * FROM (SELECT 1 AS "x") "a" LEFT OUTER JOIN (SELECT 1 AS "x") "b" ON "a"."x" = "b"."x"'
 
+    'all comparators work': ->
+      tab = Rel.table('x')
+      q = Rel.select().project(
+        tab.column('x').lt(2)
+        tab.column('x').lteq(2)
+        tab.column('x').gt(2)
+        tab.column('x').gteq(2)
+        tab.column('x').notEq(2)
+      ).toSql()
+      assert.equal q, 'SELECT "x"."x" < 2, "x"."x" <= 2, "x"."x" > 2, "x"."x" >= 2, "x"."x" <> 2'
+
 tests.export module
 

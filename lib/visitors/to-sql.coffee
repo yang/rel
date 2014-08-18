@@ -224,8 +224,17 @@ class ToSql extends Visitor
   visitRelNodesLessThan: (o) ->
     "#{@visit o.left} < #{@visit o.right}"
 
+  visitRelNodesLessThanOrEqual: (o) ->
+    "#{@visit o.left} <= #{@visit o.right}"
+
   visitRelNodesGreaterThan: (o) ->
     "#{@visit o.left} > #{@visit o.right}"
+
+  visitRelNodesGreaterThanOrEqual: (o) ->
+    "#{@visit o.left} >= #{@visit o.right}"
+
+  visitRelNodesNotEqual: (o) ->
+    "#{@visit o.left} <> #{@visit o.right}"
 
   visitRelNodesNot: (o) ->
     "NOT (#{@visit o.expr})"
