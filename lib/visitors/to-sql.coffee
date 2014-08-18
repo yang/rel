@@ -294,6 +294,6 @@ class ToSql extends Visitor
   visitRelNodesFunctionNode: (o) ->
     "#{@visit o.alias}(#{(@visit(x) for x in o.expressions)})"
 
-
+  visitRelNodesNull: -> 'NULL'
 
 exports = module.exports = ToSql

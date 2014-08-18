@@ -543,5 +543,8 @@ tests = vows.describe('Querying stuff').addBatch
       ).toSql()
       assert.equal q, 'SELECT "x"."x" < 2, "x"."x" <= 2, "x"."x" > 2, "x"."x" >= 2, "x"."x" <> 2'
 
+    'nulls': ->
+      assert.equal Rel.select().project(null).toSql(), 'SELECT NULL'
+
 tests.export module
 
