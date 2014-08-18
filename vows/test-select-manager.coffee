@@ -546,5 +546,36 @@ tests = vows.describe('Querying stuff').addBatch
     'nulls': ->
       assert.equal Rel.select().project(null).toSql(), 'SELECT NULL'
 
+    'case':
+      'works': ->
+        u = Rel.table('users')
+        q = Rel.select()
+          .from(u)
+          .project(
+            Rel.case()
+              .when(u.column('age').lt(18), 'underage')
+              .when(u.column('age').gteq(18), 'OK')
+              .else(null)
+              .end()
+            Rel.case(u.column('protection'))
+              .when('private', true)
+              .when('public', false)
+              .end().as('private')
+          )
+        assert.equal q.toSql(),
+          """
+          SELECT
+          CASE
+          WHEN "users"."age" < 18 THEN 'underage'
+          WHEN "users"."age" >= 18 THEN 'OK'
+          ELSE NULL
+          END,
+          CASE "users"."protection"
+          WHEN 'private' THEN true
+          WHEN 'public' THEN false
+          END AS "private"
+          FROM "users"
+          """.replace(/\s+/g, ' ').trim()
+
 tests.export module
 

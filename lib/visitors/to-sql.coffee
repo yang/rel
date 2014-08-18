@@ -294,6 +294,16 @@ class ToSql extends Visitor
   visitRelNodesFunctionNode: (o) ->
     "#{@visit o.alias}(#{(@visit(x) for x in o.expressions)})"
 
+  visitRelNodesCase: (o) ->
+    u([
+      'CASE'
+      @visit o._base if o._base != undefined
+      for [cond, res] in o._cases
+        "WHEN #{@visit cond} THEN #{@visit res}"
+      "ELSE #{@visit o._else}" if o._else != undefined
+      'END'
+    ]).chain().flatten().compact().value().join(' ')
+
   visitRelNodesNull: -> 'NULL'
 
 exports = module.exports = ToSql
