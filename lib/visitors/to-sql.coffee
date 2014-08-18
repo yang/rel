@@ -305,5 +305,9 @@ class ToSql extends Visitor
     ]).chain().flatten().compact().value().join(' ')
 
   visitRelNodesNull: -> 'NULL'
+  visitRelNodesIsNull: (o) ->
+    console.log o.constructor.name
+    "#{@visit o.expr} IS NULL"
+  visitRelNodesNotNull: (o) -> "#{@visit o.expr} IS NOT NULL"
 
 exports = module.exports = ToSql

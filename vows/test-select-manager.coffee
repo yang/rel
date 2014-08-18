@@ -540,8 +540,10 @@ tests = vows.describe('Querying stuff').addBatch
         tab.column('x').gt(2)
         tab.column('x').gteq(2)
         tab.column('x').notEq(2)
+        tab.column('x').isNull()
+        tab.column('x').notNull()
       ).toSql()
-      assert.equal q, 'SELECT "x"."x" < 2, "x"."x" <= 2, "x"."x" > 2, "x"."x" >= 2, "x"."x" <> 2'
+      assert.equal q, 'SELECT "x"."x" < 2, "x"."x" <= 2, "x"."x" > 2, "x"."x" >= 2, "x"."x" <> 2, "x"."x" IS NULL, "x"."x" IS NOT NULL'
 
     'nulls': ->
       assert.equal Rel.select().project(null).toSql(), 'SELECT NULL'

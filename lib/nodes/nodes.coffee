@@ -56,6 +56,8 @@ Nodes =
   Intersect: class Intersect extends Binary
   Except: class Except extends Binary
   Ordering: class Ordering extends Binary
+  IsNull: class IsNull extends Unary
+  NotNull: class NotNull extends Unary
   Bin: class Bin extends Unary
   Group: class Group extends Unary
   Grouping: class Grouping extends Unary

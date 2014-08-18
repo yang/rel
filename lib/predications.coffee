@@ -20,6 +20,9 @@ Predications =
     
   notEqAll: (others) ->
     @groupingAll 'not_eq', others
+
+  isNull: -> new (@nodes()).IsNull(@)
+  notNull: -> new (@nodes()).NotNull(@)
     
   eq: (other) ->
     n = @nodes()
