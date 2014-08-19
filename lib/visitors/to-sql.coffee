@@ -312,7 +312,6 @@ class ToSql extends Visitor
 
   visitRelNodesNull: -> 'NULL'
   visitRelNodesIsNull: (o) ->
-    console.log o.constructor.name
     "#{@visit o.expr} IS NULL"
   visitRelNodesNotNull: (o) -> "#{@visit o.expr} IS NOT NULL"
 
