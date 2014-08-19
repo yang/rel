@@ -127,6 +127,9 @@ Predications =
     
   ltAll: (others) ->
     @groupingAll 'lt', others
+
+  like: (right) -> new (@nodes()).Like(@, right)
+  ilike: (right) -> new (@nodes()).ILike(@, right)
     
   asc: ->
     n = @nodes()

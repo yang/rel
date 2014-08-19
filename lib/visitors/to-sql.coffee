@@ -221,6 +221,12 @@ class ToSql extends Visitor
   visitRelNodesUnion: (o) ->
     "( #{@visit o.left} UNION #{@visit o.right} )"
 
+  visitRelNodesLike: (o) ->
+    "#{@visit o.left} LIKE #{@visit o.right}"
+
+  visitRelNodesILike: (o) ->
+    "#{@visit o.left} ILIKE #{@visit o.right}"
+
   visitRelNodesLessThan: (o) ->
     "#{@visit o.left} < #{@visit o.right}"
 

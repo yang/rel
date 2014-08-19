@@ -45,6 +45,8 @@ Nodes =
   GreaterThan: class GreaterThan extends Binary
   GreaterThanOrEqual: class GreaterThanOrEqual extends Binary
   Join: class Join extends Binary
+  Like: class Like extends Binary
+  ILike: class ILike extends Binary
   LessThan: class LessThan extends Binary
   LessThanOrEqual: class LessThanOrEqual extends Binary
   Matches: class Matches extends Binary

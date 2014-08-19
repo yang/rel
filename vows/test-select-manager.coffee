@@ -542,8 +542,10 @@ tests = vows.describe('Querying stuff').addBatch
         tab.column('x').notEq(2)
         tab.column('x').isNull()
         tab.column('x').notNull()
+        tab.column('x').like('%John%')
+        tab.column('x').ilike('%john%')
       ).toSql()
-      assert.equal q, 'SELECT "x"."x" < 2, "x"."x" <= 2, "x"."x" > 2, "x"."x" >= 2, "x"."x" <> 2, "x"."x" IS NULL, "x"."x" IS NOT NULL'
+      assert.equal q, """SELECT "x"."x" < 2, "x"."x" <= 2, "x"."x" > 2, "x"."x" >= 2, "x"."x" <> 2, "x"."x" IS NULL, "x"."x" IS NOT NULL, "x"."x" LIKE '%John%', "x"."x" ILIKE '%john%'"""
 
     'nulls': ->
       assert.equal Rel.select().project(null).toSql(), 'SELECT NULL'
