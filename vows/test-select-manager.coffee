@@ -522,7 +522,7 @@ tests = vows.describe('Querying stuff').addBatch
           'SELECT "users"."id" FROM "users" WHERE NOT ("users"."age" > 18)'
 
     'subqueries':
-      'work': ->
+      'work in from': ->
         a = Rel.select().project(new Nodes.As(1, new Nodes.UnqualifiedName('x'))).as('a')
         b = Rel.select().project(new Nodes.As(1, new Nodes.UnqualifiedName('x'))).as('b')
         q = Rel.select()
@@ -531,6 +531,11 @@ tests = vows.describe('Querying stuff').addBatch
           .project(Rel.star())
         assert.equal q.toSql(),
           'SELECT * FROM (SELECT 1 AS "x") "a" LEFT OUTER JOIN (SELECT 1 AS "x") "b" ON "a"."x" = "b"."x"'
+      'work in project': ->
+        a = Rel.select().project(1)
+        b = Rel.select().project(1)
+        q = Rel.select().project(a.eq(b))
+        assert.equal q.toSql(), 'SELECT (SELECT 1) = (SELECT 1)'
 
     'all comparators work': ->
       tab = Rel.table('x')

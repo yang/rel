@@ -2,6 +2,7 @@ u = require 'underscore'
 Nodes = null
 TreeManager = require './tree-manager'
 Visitors = require './visitors'
+Predications = require './predications'
 
 class SelectManager extends TreeManager
   constructor: (table) ->
@@ -10,6 +11,7 @@ class SelectManager extends TreeManager
     @ast = new Nodes.SelectStatement()
     @ctx = u(@ast.cores).last()
     @from table
+    u(@).defaults(Predications)
     
   project: (projections...) ->
     @ctx.projections = @ctx.projections.concat projections

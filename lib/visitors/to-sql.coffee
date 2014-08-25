@@ -25,6 +25,9 @@ class ToSql extends Visitor
       ("WHERE #{(u(o.wheres).map (x) => @visit(x)).join 'AND '}" unless u(o.wheres).isEmpty())
     ]).compact().join(' ')
 
+  visitRelNodesSelectManager: (o) ->
+    "(#{@visit o.ast})"
+
   buildSubSelect: (key, o) ->
     stmt = new Nodes.SelectStatement
     core = u(stmt.cores).first()
