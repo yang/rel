@@ -222,7 +222,7 @@ class ToSql extends Visitor
     "EXISTS (#{@visit o.expressions})#{e}"
 
   visitRelNodesUnion: (o) ->
-    "( #{@visit o.left} UNION #{@visit o.right} )"
+    "(#{@visit o.left}) UNION (#{@visit o.right})"
 
   visitRelNodesLike: (o) ->
     "#{@visit o.left} LIKE #{@visit o.right}"
@@ -249,10 +249,10 @@ class ToSql extends Visitor
     "NOT (#{@visit o.expr})"
 
   visitRelNodesUnionAll: (o) ->
-    "( #{@visit o.left} UNION ALL #{@visit o.right} )"
+    "(#{@visit o.left}) UNION ALL (#{@visit o.right})"
 
   visitRelNodesExcept: (o) ->
-    "( #{@visit o.left} EXCEPT #{@visit o.right} )"
+    "(#{@visit o.left}) EXCEPT (#{@visit o.right})"
 
   visitRelNodesIn: (o) ->
     "#{@visit o.left} IN (#{@visit o.right})"
@@ -261,7 +261,7 @@ class ToSql extends Visitor
     "#{@visit o.left} BETWEEN (#{@visit o.right})"
 
   visitRelNodesIntersect: (o) ->
-    "( #{@visit o.left} INTERSECT #{@visit o.right} )"
+    "(#{@visit o.left}) INTERSECT (#{@visit o.right})"
 
   _withHelper: (rec, o) ->
     "WITH#{rec} #{

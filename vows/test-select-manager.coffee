@@ -154,13 +154,13 @@ tests = vows.describe('Querying stuff').addBatch
         m2 = topics[1]
         node = m1.union m2
         assert.equal node.toSql(), 
-          '( SELECT * FROM "users" WHERE "users"."age" < 18 UNION SELECT * FROM "users" WHERE "users"."age" > 99 )'
+          '(SELECT * FROM "users" WHERE "users"."age" < 18) UNION (SELECT * FROM "users" WHERE "users"."age" > 99)'
       'should union two managers': (topics) ->
         m1 = topics[0] 
         m2 = topics[1]
         node = m1.union 'all', m2
         assert.equal node.toSql(), 
-          '( SELECT * FROM "users" WHERE "users"."age" < 18 UNION ALL SELECT * FROM "users" WHERE "users"."age" > 99 )'
+          '(SELECT * FROM "users" WHERE "users"."age" < 18) UNION ALL (SELECT * FROM "users" WHERE "users"."age" > 99)'
     'except':
       topic: ->
         table = new Table 'users'
@@ -179,7 +179,7 @@ tests = vows.describe('Querying stuff').addBatch
         m2 = topics[1]
         node = m1.except m2
         assert.equal node.toSql(), 
-          '( SELECT * FROM "users" WHERE "users"."age" BETWEEN (18 AND 60) EXCEPT SELECT * FROM "users" WHERE "users"."age" BETWEEN (40 AND 99) )'
+          '(SELECT * FROM "users" WHERE "users"."age" BETWEEN (18 AND 60)) EXCEPT (SELECT * FROM "users" WHERE "users"."age" BETWEEN (40 AND 99))'
     'intersect':
       topic: ->
         table = new Table 'users'
@@ -199,7 +199,7 @@ tests = vows.describe('Querying stuff').addBatch
         node = m1.intersect m2
 
         assert.equal node.toSql(),
-          '( SELECT * FROM "users" WHERE "users"."age" > 18 INTERSECT SELECT * FROM "users" WHERE "users"."age" < 99 )'
+          '(SELECT * FROM "users" WHERE "users"."age" > 18) INTERSECT (SELECT * FROM "users" WHERE "users"."age" < 99)'
 
     'with':
       'should support WITH RECURSIVE': ->
@@ -223,7 +223,7 @@ tests = vows.describe('Querying stuff').addBatch
         manager = new SelectManager()
         manager.with('recursive', asStatement).from(replies).project(Rel.star())
 
-        string = 'WITH RECURSIVE "replies" AS (( SELECT "comments"."id", "comments"."parent_id" FROM "comments" WHERE "comments"."id" = 42 UNION SELECT "comments"."id", "comments"."parent_id" FROM "comments" INNER JOIN "replies" ON "comments"."parent_id" = "replies"."id" )) SELECT * FROM "replies"'
+        string = 'WITH RECURSIVE "replies" AS ((SELECT "comments"."id", "comments"."parent_id" FROM "comments" WHERE "comments"."id" = 42) UNION (SELECT "comments"."id", "comments"."parent_id" FROM "comments" INNER JOIN "replies" ON "comments"."parent_id" = "replies"."id")) SELECT * FROM "replies"'
         assert.equal manager.toSql(), string
 
     'ast':
