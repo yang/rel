@@ -177,6 +177,8 @@ class ToSql extends Visitor
   visitRelNodesBoolean: (o) -> @quoted(o)
   visitRelNodesNumber: (o) -> @literal(o)
 
+  visitRelNodesConstLit: (o) -> @visit o.expr
+
   quote: (value, column=null) ->
     if value == null
       'NULL'

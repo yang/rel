@@ -21,6 +21,8 @@ Rel =
   func: (name) -> (args...) =>
     new Nodes.FunctionNode(args, @sql(name))
 
+  lit: (value) -> new Nodes.ConstLit(value)
+
   Table: Table
 
   table: (args...) -> new Table(args...)

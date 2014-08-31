@@ -8,6 +8,7 @@ And = require './and'
 FunctionNode = require './function-node'
 Attribute = require '../attribute'
 InsertStatement = require './insert-statement'
+ConstLit = require './const-lit'
 
 Nodes = 
   SelectStatement: SelectStatement
@@ -17,6 +18,7 @@ Nodes =
   Binary: Binary
   TableAlias: TableAlias
   And: And
+  ConstLit: ConstLit
   Join: class Join extends Binary
   InnerJoin: class InnerJoin extends Join
   OuterJoin: class OuterJoin extends Join

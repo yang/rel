@@ -586,5 +586,13 @@ tests = vows.describe('Querying stuff').addBatch
           FROM "users"
           """.replace(/\s+/g, ' ').trim()
 
+    'constant literals': ->
+      assert.equal Rel.select().project(Rel.lit(false).not()).toSql(),
+        "SELECT NOT (false)"
+      assert.equal Rel.select().project(Rel.lit(3).eq(Rel.lit(3))).toSql(),
+        "SELECT 3 = 3"
+      assert.equal Rel.select().project(Rel.lit('a').in(Rel.lit(['a']))).toSql(),
+        "SELECT 'a' IN ('a')"
+
 tests.export module
 
