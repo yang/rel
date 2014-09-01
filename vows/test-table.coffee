@@ -33,8 +33,8 @@ tests = vows.describe('Table stuff').addBatch
       assert.equal join.right, 'bar'
 
     'it should create join nodes with a class': (table) ->
-      join = table.createJoin 'foo', 'bar', Nodes.OuterJoin
-      assert.equal join.constructor, Nodes.OuterJoin
+      join = table.createJoin 'foo', 'bar', Nodes.LeftOuterJoin
+      assert.equal join.constructor, Nodes.LeftOuterJoin
       assert.equal join.left, 'foo'
       assert.equal join.right, 'bar'
 

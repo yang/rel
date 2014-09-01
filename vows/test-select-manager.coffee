@@ -329,8 +329,8 @@ tests = vows.describe('Querying stuff').addBatch
 
       'it should create JOIN nodes with a class': ->
         relation = new SelectManager()
-        join = relation.createJoin 'foo', 'bar', Nodes.OuterJoin
-        assert.equal join.constructor, Nodes.OuterJoin
+        join = relation.createJoin 'foo', 'bar', Nodes.LeftOuterJoin
+        assert.equal join.constructor, Nodes.LeftOuterJoin
         assert.equal 'foo', join.left
         assert.equal 'bar', join.right
 
@@ -354,7 +354,7 @@ tests = vows.describe('Querying stuff').addBatch
         manager = new SelectManager()
 
         manager.from left
-        manager.join(right, Nodes.OuterJoin).on(predicate)
+        manager.join(right, Nodes.LeftOuterJoin).on(predicate)
         assert.equal manager.toSql(), 'SELECT FROM "users" LEFT OUTER JOIN "users" "users_2" ON "users"."id" = "users_2"."id"'
 
       'it noops on null': ->
@@ -373,7 +373,7 @@ tests = vows.describe('Querying stuff').addBatch
         table = new Table 'users'
         alias = table.alias()
         manager = new SelectManager()
-        manager.from(new Nodes.OuterJoin(alias, table.column('id').eq(alias.column('id'))))
+        manager.from(new Nodes.LeftOuterJoin(alias, table.column('id').eq(alias.column('id'))))
         assert.equal manager.joinSql().toString(), 'LEFT OUTER JOIN "users" "users_2" "users"."id" = "users_2"."id"'
 
       'return string join sql': ->
@@ -526,7 +526,7 @@ tests = vows.describe('Querying stuff').addBatch
         a = Rel.select().project(new Nodes.As(1, new Nodes.UnqualifiedName('x'))).as('a')
         b = Rel.select().project(new Nodes.As(1, new Nodes.UnqualifiedName('x'))).as('b')
         q = Rel.select()
-          .from(a).join(b, Nodes.OuterJoin)
+          .from(a).join(b, Nodes.LeftOuterJoin)
           .on(a.column('x').eq(b.column('x')))
           .project(Rel.star())
         assert.equal q.toSql(),

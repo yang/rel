@@ -21,7 +21,9 @@ Nodes =
   ConstLit: ConstLit
   Join: class Join extends Binary
   InnerJoin: class InnerJoin extends Join
-  OuterJoin: class OuterJoin extends Join
+  LeftOuterJoin: class LeftOuterJoin extends Join
+  RightOuterJoin: class RightOuterJoin extends Join
+  FullOuterJoin: class FullOuterJoin extends Join
   StringJoin: class StringJoin extends Join
     constructor: (left, right=null) ->
       super left, right
