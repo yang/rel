@@ -23,6 +23,8 @@ Rel =
 
   lit: (value) -> new Nodes.ConstLit(value)
 
+  Nodes: Nodes
+
   Table: Table
 
   table: (args...) -> new Table(args...)
