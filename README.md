@@ -1,10 +1,10 @@
 # Rel
 
-http://github.com/cjwoodward/rel
+https://github.com/yang/rel
 
-## Looking for a new maintainer
+## New fork
 
-I have done a terrible job of maintaining rel. If you would like to take it over shoot me an email.
+Please see https://github.com/yang/rel.
 
 ## Description
 
