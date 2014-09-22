@@ -2,6 +2,10 @@
 
 http://github.com/cjwoodward/rel
 
+## Looking for a new maintainer
+
+I have done a terrible job of maintaining rel. If you would like to take it over shoot me an email.
+
 ## Description
 
 Rel is a SQL AST manager for Node JS. It is a straight port of https://github.com/rails/arel. Although it does have some changes of note. These are:
