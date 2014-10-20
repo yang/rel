@@ -85,5 +85,5 @@ Current developer and maintainer is Yang Zhang ([@yang]).
 - Using special commit of vows to work around
   <https://github.com/flatiron/vows/issues/296>.
 
-[@carlwoodward]: /carlwoodward
-[@yang]: /yang
+[@carlwoodward]: //github.com/carlwoodward
+[@yang]: //github.com/yang
