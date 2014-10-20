@@ -2,10 +2,6 @@
 
 https://github.com/yang/rel
 
-## New fork
-
-Please see https://github.com/yang/rel.
-
 ## Description
 
 Rel is a SQL AST manager for Node JS. It is a straight port of https://github.com/rails/arel. Although it does have some changes of note. These are:
@@ -78,8 +74,13 @@ The OR operator works like this:
 
 This is the same as the AS operator.
 
-Setup notes
-===========
+## Contributors
+
+Founded and majority of development to date by Carl Woodward (@carlwoodward).
+
+Current developer and maintainer is Yang Zhang (@yang).
+
+## Setup notes
 
 - Using special commit of vows to work around
   <https://github.com/flatiron/vows/issues/296>.
