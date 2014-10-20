@@ -76,11 +76,14 @@ This is the same as the AS operator.
 
 ## Contributors
 
-Founded and majority of development to date by Carl Woodward (@carlwoodward).
+Founded and majority of development to date by Carl Woodward ([@carlwoodward]).
 
-Current developer and maintainer is Yang Zhang (@yang).
+Current developer and maintainer is Yang Zhang ([@yang]).
 
 ## Setup notes
 
 - Using special commit of vows to work around
   <https://github.com/flatiron/vows/issues/296>.
+
+[@carlwoodward]: /carlwoodward
+[@yang]: /yang
