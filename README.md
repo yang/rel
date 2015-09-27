@@ -88,6 +88,10 @@ Founded and majority of development to date by Carl Woodward ([@carlwoodward]).
 
 Current developer and maintainer is Yang Zhang ([@yang]).
 
+## Development
+
+To run tests, run `npm test`.
+
 ## Setup notes
 
 - Using special commit of vows to work around
