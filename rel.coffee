@@ -23,6 +23,10 @@ Rel =
 
   lit: (value) -> new Nodes.ConstLit(value)
 
+  as: (a,b) -> new Nodes.As(a, new Nodes.UnqualifiedName(b))
+
+  cast: (a,b) -> Rel.func('CAST')(Rel.as(a, b))
+
   Nodes: Nodes
 
   Table: Table

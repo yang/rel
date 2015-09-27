@@ -594,5 +594,9 @@ tests = vows.describe('Querying stuff').addBatch
       assert.equal Rel.select().project(Rel.lit('a').in(Rel.lit(['a']))).toSql(),
         "SELECT 'a' IN ('a')"
 
+    'cast': ->
+      assert.equal Rel.select().project(Rel.cast(3, 'int')).toSql(),
+        'SELECT CAST(3 AS "int")'
+
 tests.export module
 
