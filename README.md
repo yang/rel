@@ -22,6 +22,14 @@ _Before you ask, there will also be a port of ActiveRecord coming in the next li
 
     npm install rel
 
+Unfortunately the package is currently purely Coffeescript, with no
+accompanying JS compilation in the git repo.  To use this with a JS project,
+you can compile the files in-place with:
+
+    npm run build
+
+This is a bandaid for the time being.
+
 ## Introduction
 
     users = new Rel.Table 'users'

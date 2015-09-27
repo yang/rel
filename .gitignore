@@ -1,2 +1,6 @@
 *.DS_Store
-node_modules/
+/node_modules/
+/rel.js
+/rel.js.map
+/lib/**/*.js
+/lib/**/*.js.map

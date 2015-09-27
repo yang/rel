@@ -53,6 +53,9 @@
   "directories": {
     "lib": "lib"
   },
+  "scripts": {
+    "build": "find rel.coffee lib/ -name '*.coffee' | xargs ./node_modules/.bin/coffee --map --compile"
+  },
   "devDependencies": {
     "vows": "git+https://github.com/snoble/vows.git#1e8fa11fdb2f67eac285cbcbcf6485eec131fa02"
   }
