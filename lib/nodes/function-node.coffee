@@ -3,8 +3,8 @@ Node = require './node'
 SqlLiteral = require './sql-literal'
 
 class FunctionNode extends Node
-  constructor: (expr, aliaz=null) ->
-    @expressions = expr
+  constructor: (exprs, aliaz=null) ->
+    @expressions = exprs
     @alias = aliaz
     @distinct = false
     Expressions = require '../expressions'
