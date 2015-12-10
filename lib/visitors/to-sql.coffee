@@ -279,11 +279,13 @@ class ToSql extends Visitor
 
   visitRelNodesEquality: (o) ->
     right = o.right
+    lparen = (x) -> if o.left instanceof Nodes.Binary then "(#{x})" else x
+    rparen = (x) -> if o.right instanceof Nodes.Binary then "(#{x})" else x
 
     if right?
-      "#{@visit o.left} = #{@visit right}"
+      "#{lparen @visit o.left} = #{rparen @visit right}"
     else
-      "#{@visit o.left} IS NULL"
+      "#{lparen @visit o.left} IS NULL"
 
   visitRelNodesLock: (o) ->
 

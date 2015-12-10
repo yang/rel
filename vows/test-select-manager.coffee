@@ -598,5 +598,9 @@ tests = vows.describe('Querying stuff').addBatch
       assert.equal Rel.select().project(Rel.cast(3, 'int')).toSql(),
         'SELECT CAST(3 AS "int")'
 
+    'nested expressions': ->
+      assert.equal Rel.select().project(Rel.lit(1).eq(Rel.lit(1)).eq(Rel.lit(true))).toSql(),
+        'SELECT (1 = 1) = true'
+
 tests.export module
 
