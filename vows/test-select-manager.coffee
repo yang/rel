@@ -593,6 +593,10 @@ tests = vows.describe('Querying stuff').addBatch
         "SELECT 3 = 3"
       assert.equal Rel.select().project(Rel.lit('a').in(Rel.lit(['a']))).toSql(),
         "SELECT 'a' IN ('a')"
+      assert.equal Rel.select().project(Rel.lit('a').in(Rel.lit([]))).toSql(),
+        "SELECT false"
+      assert.equal Rel.select().project(Rel.lit('a').in([])).toSql(),
+        "SELECT false"
 
     'cast': ->
       assert.equal Rel.select().project(Rel.cast(3, 'int')).toSql(),

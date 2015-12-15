@@ -257,7 +257,13 @@ class ToSql extends Visitor
     "(#{@visit o.left}) EXCEPT (#{@visit o.right})"
 
   visitRelNodesIn: (o) ->
-    "#{@visit o.left} IN (#{@visit o.right})"
+    if u.isArray(o.right) and o.right.length == 0 or
+        o.right instanceof Nodes.ConstLit and u.isArray(o.right.value) and o.right.value.length == 0
+      # Empty list literals not supported, but they always evaluate to false,
+      # even if the LHS is NULL or itself an empty list.
+      "false"
+    else
+      "#{@visit o.left} IN (#{@visit o.right})"
 
   visitRelNodesBetween: (o) ->
     "#{@visit o.left} BETWEEN (#{@visit o.right})"
